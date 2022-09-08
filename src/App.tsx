@@ -5,7 +5,6 @@ import './App.css'
 import Lobby from './components/Lobby'
 import { Message } from './types/models'
 import Chat from './components/Chat'
-import { Navbar } from 'react-daisyui'
 
 function App() {
   const [connection, setConnection] = useState<HubConnection | null>(null)

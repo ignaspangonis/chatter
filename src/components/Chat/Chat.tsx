@@ -19,6 +19,7 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
 
     const { scrollHeight, clientHeight } = messageRef.current
 
+    // TODO: make this work
     messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
   }, [messages])
 
