@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { Button } from 'react-daisyui'
 
 import { Message } from 'src/types/models'
 
@@ -18,20 +19,15 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
 
     const { scrollHeight, clientHeight } = messageRef.current
 
-    messageRef.current.scrollTo({
-      top: scrollHeight - clientHeight,
-      behavior: 'smooth',
-    })
+    messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
   }, [messages])
 
   return (
-    <div ref={messageRef}>
+    <div ref={messageRef} className="w-full">
       <div className="mb-regular flex justify-end">
-        <button className="btn btn-accent" onClick={onCloseConnection}>
-          Leave Room
-        </button>
+        <Button onClick={onCloseConnection}>Leave Room</Button>
       </div>
-      <div className="chat">
+      <div>
         <div className="message-container">
           {messages.map(message => (
             <div className="user-message">

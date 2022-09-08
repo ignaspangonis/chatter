@@ -56,13 +56,13 @@ function App() {
   }
 
   return (
-    <div>
-      <div className="flex w-full items-center justify-center my-large">
+    <div className="app">
+      <div className="flex w-full items-center justify-center py-large">
         <h1 className="text-4xl font-bold">Chatter</h1>
       </div>
 
       <hr />
-      <div className="flex items-center justify-center mx-auto max-w-x8-large">
+      <div className="flex items-center justify-center max-w-x8-large mx-auto px-medium mt-x2-large">
         {connection ? (
           <Chat
             messages={messages}

@@ -28,7 +28,7 @@ export default function Lobby({ onJoin }: Props) {
 
   return (
     <Form
-      className="flex flex-col justify-center items-center w-full max-w-x8-large gap-medium mt-x2-large"
+      className="flex flex-col justify-center items-center w-full gap-medium"
       onSubmit={handleSubmit}
     >
       <InputGroup className="input-group">
