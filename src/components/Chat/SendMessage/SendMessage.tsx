@@ -1,5 +1,4 @@
 import React, { FormEvent, useState } from 'react'
-import { Button, Form, InputGroup } from 'react-bootstrap'
 
 type Props = {
   onSubmit: (message: string) => void
@@ -14,6 +13,7 @@ export default function SendMessage({ onSubmit }: Props) {
     if (!message) return
 
     onSubmit(message)
+    setMessage('')
   }
 
   const handleMessageInput = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,14 +21,21 @@ export default function SendMessage({ onSubmit }: Props) {
   }
 
   return (
-    <Form className="SendMessage" onSubmit={handleSubmit}>
-      <InputGroup>
-        <Form.Control placeholder="Aa" onChange={handleMessageInput} />
+    <form className="SendMessage" onSubmit={handleSubmit}>
+      <div className="flex flex-row gap-regular grow">
+        <input
+          className="input input-bordered mx-auto flex-grow"
+          value={message}
+          placeholder="Aa"
+          onChange={handleMessageInput}
+        />
 
-        <Button variant="primary" type="submit" disabled={!message}>
-          Send
-        </Button>
-      </InputGroup>
-    </Form>
+        <div className="">
+          <button className="btn" type="submit" disabled={!message}>
+            Send
+          </button>
+        </div>
+      </div>
+    </form>
   )
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import { Button } from 'react-bootstrap'
 
-import { Message } from 'src/types/dtos'
+import { Message } from 'src/types/models'
 
 import SendMessage from './SendMessage/SendMessage'
 
@@ -27,17 +26,19 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
 
   return (
     <div ref={messageRef}>
-      <div className="leave-room">
-        <Button variant="danger" onClick={onCloseConnection}>
+      <div className="mb-regular flex justify-end">
+        <button className="btn btn-accent" onClick={onCloseConnection}>
           Leave Room
-        </Button>
+        </button>
       </div>
       <div className="chat">
         <div className="message-container">
           {messages.map(message => (
             <div className="user-message">
-              <div className="from-user">{message.userName}</div>
-              <div className="message bg-primary">{message.message}</div>
+              <div className="text-sm">{message.userName}</div>
+              <div className="inline-flex mb-[0] mt-small mx-auto p-small text-base text-cg7 rounded-md bg-primary">
+                {message.message}
+              </div>
             </div>
           ))}
         </div>

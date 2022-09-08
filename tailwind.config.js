@@ -18,7 +18,28 @@ const SPACING_VALUES = {
 
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+
   theme: {
+    colors: {
+      primary: '#570DF8',
+      secondary: '#F000B8',
+      accent: '#37CDBE',
+      neutral: '#3D4451',
+      'base-100': '#FFFFFF',
+      info: '#3ABFF8',
+      success: '#36D399',
+      warning: '#FBBD23',
+      error: '#F87272',
+
+      // Grayscale
+      cg1: '#171717',
+      cg2: '#4D4D4D',
+      cg3: '#757575',
+      cg4: '#999999',
+      cg5: '#C9C9C9',
+      cg6: '#F2F2F2',
+      cg7: '#FFFFFF',
+    },
     spacing: SPACING_VALUES,
     maxWidth: SPACING_VALUES,
     screens: {
@@ -78,5 +99,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }

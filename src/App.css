@@ -11,11 +11,6 @@ Form Button {
   display: grid;
 }
 
-.leave-room {
-  text-align: right;
-  margin-bottom: 4px;
-}
-
 .user-list {
   float: left;
   background-color: #313131;

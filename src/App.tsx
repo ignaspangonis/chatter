@@ -1,12 +1,11 @@
 import { HubConnectionBuilder, LogLevel, HubConnection } from '@microsoft/signalr'
 import { useState } from 'react'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-
 import './App.css'
 import Lobby from './components/Lobby'
-import { Message } from './types/dtos'
+import { Message } from './types/models'
 import Chat from './components/Chat'
+import { Navbar } from 'react-daisyui'
 
 function App() {
   const [connection, setConnection] = useState<HubConnection | null>(null)
@@ -57,18 +56,23 @@ function App() {
   }
 
   return (
-    <div className="mx-auto">
-      <h1 className="font-bold">Hello world!</h1>
-      <hr className="line" />
-      {connection ? (
-        <Chat
-          messages={messages}
-          onSendMessage={handleSendMessage}
-          onCloseConnection={handleCloseConnection}
-        />
-      ) : (
-        <Lobby onJoin={handleRoomJoin} />
-      )}
+    <div>
+      <div className="flex w-full items-center justify-center my-large">
+        <h1 className="text-4xl font-bold">Chatter</h1>
+      </div>
+
+      <hr />
+      <div className="flex items-center justify-center mx-auto max-w-x8-large">
+        {connection ? (
+          <Chat
+            messages={messages}
+            onSendMessage={handleSendMessage}
+            onCloseConnection={handleCloseConnection}
+          />
+        ) : (
+          <Lobby onJoin={handleRoomJoin} />
+        )}
+      </div>
     </div>
   )
 }
