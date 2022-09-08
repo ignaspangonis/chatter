@@ -31,6 +31,7 @@ function App() {
       setConnection(newConnection)
     } catch (error) {
       console.log(error)
+      alert('Failed to join room')
     }
   }
 
@@ -41,6 +42,7 @@ function App() {
       await connection.invoke('SendMessage', message)
     } catch (error) {
       console.log(error)
+      alert('Failed to send message')
     }
   }
 
@@ -51,6 +53,7 @@ function App() {
       await connection.stop()
     } catch (error) {
       console.log(error)
+      alert('Failed to leave room')
     }
   }
 
