@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button } from 'react-bootstrap'
 
 import { Message } from 'src/types/dtos'
@@ -12,8 +12,21 @@ type Props = {
 }
 
 export default function Chat({ messages, onSendMessage, onCloseConnection }: Props) {
+  const messageRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!messageRef.current) return
+
+    const { scrollHeight, clientHeight } = messageRef.current
+
+    messageRef.current.scrollTo({
+      top: scrollHeight - clientHeight,
+      behavior: 'smooth',
+    })
+  }, [messages])
+
   return (
-    <div>
+    <div ref={messageRef}>
       <div className="leave-room">
         <Button variant="danger" onClick={onCloseConnection}>
           Leave Room
@@ -21,8 +34,8 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
       </div>
       <div className="chat">
         <div className="message-container">
-          {messages.map((message, index) => (
-            <div key={index} className="user-message">
+          {messages.map(message => (
+            <div className="user-message">
               <div className="from-user">{message.userName}</div>
               <div className="message bg-primary">{message.message}</div>
             </div>

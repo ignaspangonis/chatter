@@ -57,8 +57,8 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h2>React App</h2>
+    <div className="mx-auto">
+      <h1 className="font-bold">Hello world!</h1>
       <hr className="line" />
       {connection ? (
         <Chat

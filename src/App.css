@@ -2,26 +2,6 @@ Form Button {
   width: 100%;
 }
 
-h2 {
-  color: #313131;
-}
-
-h6 {
-  color: greenyellow;
-}
-
-hr.line {
-  border: 1px solid #313131;
-  width: 175px;
-}
-
-.app {
-  margin: auto;
-  padding-top: 40px;
-  width: 950px;
-  text-align: center;
-}
-
 .lobby {
   width: 400px;
   margin: auto;
