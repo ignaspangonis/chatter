@@ -29,7 +29,7 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
         <Button onClick={onCloseConnection}>Leave Room</Button>
       </div>
       <div>
-        <div className="message-container">
+        <div className="overflow-auto min-h-[400px] rounded m-x-small bg-cg5">
           {messages.map(message => (
             <div className="user-message">
               <div className="text-sm">{message.userName}</div>
