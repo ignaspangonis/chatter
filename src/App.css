@@ -16,13 +16,6 @@
   margin-right: 4px;
 }
 
-.message-container {
-  height: 400px;
-  overflow: auto;
-  border-radius: 5px;
-  margin-bottom: 2px;
-}
-
 .user-message {
   text-align: right;
   padding-right: 5px;
