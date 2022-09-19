@@ -5,7 +5,7 @@ import './App.css'
 import Lobby from './components/Lobby'
 import { Message } from './types/models'
 import Chat from './components/Chat'
-import { ConnectionEvent } from './constants/connection'
+import { ChatHubMethod } from './constants/connection'
 
 function App() {
   const [connection, setConnection] = useState<HubConnection | null>(null)
@@ -18,7 +18,7 @@ function App() {
         .configureLogging(LogLevel.Information)
         .build()
 
-      newConnection.on(ConnectionEvent.ReceiveMessage, (userName, message) => {
+      newConnection.on(ChatHubMethod.ReceiveMessage, (userName, message) => {
         setMessages(messages => [...messages, { userName, message }])
       })
 
@@ -28,7 +28,10 @@ function App() {
       })
 
       await newConnection.start()
-      await newConnection.invoke(ConnectionEvent.JoinRoom, { user: userName, room: roomName })
+      await newConnection.invoke(ChatHubMethod.JoinRoom, {
+        UserName: userName,
+        RoomName: roomName,
+      })
       setConnection(newConnection)
     } catch (error) {
       console.log(error)
@@ -40,7 +43,7 @@ function App() {
     if (!connection) return
 
     try {
-      await connection.invoke(ConnectionEvent.SendMessage, message)
+      await connection.invoke(ChatHubMethod.SendMessage, message)
     } catch (error) {
       console.log(error)
       alert('Failed to send message')
@@ -64,7 +67,7 @@ function App() {
         <h1 className="text-4xl font-bold">Chatter</h1>
       </div>
 
-      <hr />
+      <hr className="border-cg5" />
       <div className="flex items-center justify-center max-w-x8-large mx-auto px-medium mt-x2-large">
         {connection ? (
           <Chat
