@@ -23,21 +23,25 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
     messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
   }, [messages])
 
+  function renderMessage(message: Message) {
+    return (
+      <div className="user-message">
+        <div className="text-sm">{message.userName}</div>
+        <div className="inline-flex mb-[0] mt-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary">
+          {message.message}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div ref={messageRef} className="w-full">
-      <div className="mb-regular flex justify-end">
+      <div className="mb-large flex justify-end">
         <Button onClick={onCloseConnection}>Leave Room</Button>
       </div>
       <div>
-        <div className="overflow-auto min-h-[400px] rounded m-x-small bg-cg5">
-          {messages.map(message => (
-            <div className="user-message">
-              <div className="text-sm">{message.userName}</div>
-              <div className="inline-flex mb-[0] mt-small mx-auto p-small text-base text-cg7 rounded-md bg-primary">
-                {message.message}
-              </div>
-            </div>
-          ))}
+        <div className="overflow-auto min-h-[400px] rounded-lg mb-large p-regular bg-cg6">
+          {messages.map(renderMessage)}
         </div>
         <SendMessage onSubmit={onSendMessage} />
       </div>
