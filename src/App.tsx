@@ -5,6 +5,7 @@ import './App.css'
 import Lobby from './components/Lobby'
 import { Message } from './types/models'
 import Chat from './components/Chat'
+import { ConnectionEvent } from './constants/connection'
 
 function App() {
   const [connection, setConnection] = useState<HubConnection | null>(null)
@@ -17,7 +18,7 @@ function App() {
         .configureLogging(LogLevel.Information)
         .build()
 
-      newConnection.on('ReceiveMessage', (userName, message) => {
+      newConnection.on(ConnectionEvent.ReceiveMessage, (userName, message) => {
         setMessages(messages => [...messages, { userName, message }])
       })
 
@@ -27,7 +28,7 @@ function App() {
       })
 
       await newConnection.start()
-      await newConnection.invoke('JoinRoom', { user: userName, room: roomName })
+      await newConnection.invoke(ConnectionEvent.JoinRoom, { user: userName, room: roomName })
       setConnection(newConnection)
     } catch (error) {
       console.log(error)
@@ -39,7 +40,7 @@ function App() {
     if (!connection) return
 
     try {
-      await connection.invoke('SendMessage', message)
+      await connection.invoke(ConnectionEvent.SendMessage, message)
     } catch (error) {
       console.log(error)
       alert('Failed to send message')
