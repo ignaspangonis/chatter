@@ -25,11 +25,11 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
 
   function renderMessage(message: Message) {
     return (
-      <div className="user-message">
+      <div className="user-message" role="gridcell" tabIndex={0}>
         <div className="text-sm">{message.userName}</div>
-        <div className="inline-flex mb-[0] mt-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary">
+        <p className="inline-flex mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary">
           {message.message}
-        </div>
+        </p>
       </div>
     )
   }
@@ -40,7 +40,7 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
         <Button onClick={onCloseConnection}>Leave Room</Button>
       </div>
       <div>
-        <div className="overflow-auto min-h-[400px] rounded-lg mb-large p-regular bg-cg6">
+        <div className="flex flex-col gap-regular overflow-auto min-h-[400px] rounded-lg mb-large p-regular bg-cg6">
           {messages.map(renderMessage)}
         </div>
         <SendMessage onSubmit={onSendMessage} />
