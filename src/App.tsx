@@ -9,6 +9,8 @@ import Chat from './components/Chat'
 import { ChatHubMethod } from './constants/connection'
 import ChatContext from './containers/ChatProvider/ChatContext'
 
+const CHAT_API_URL = 'https://localhost:7276/chat'
+
 function App() {
   const [messages, setMessages] = useState<Message[]>([])
   const navigate = useNavigate()
@@ -18,7 +20,7 @@ function App() {
   async function handleRoomJoin(userName: string, roomName: string) {
     try {
       const newConnection = new HubConnectionBuilder()
-        .withUrl('https://localhost:7276/chat')
+        .withUrl(CHAT_API_URL)
         .configureLogging(LogLevel.Information)
         .build()
 

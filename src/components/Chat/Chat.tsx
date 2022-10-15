@@ -16,7 +16,7 @@ export default function Chat({ messages }: Props) {
   const messageRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
-  const { connection } = useContext(ChatContext)
+  const { connection, setConnection } = useContext(ChatContext)
 
   useEffect(() => {
     if (!connection) navigate('/')
@@ -39,6 +39,7 @@ export default function Chat({ messages }: Props) {
     try {
       await connection.stop()
 
+      setConnection(null)
       navigate('/')
     } catch (error) {
       console.log(error)
