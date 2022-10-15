@@ -10,9 +10,9 @@ const CHAT_API_URL = 'https://localhost:7276/chat'
 
 const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([])
-  const navigate = useNavigate()
-
   const { connection, setConnection, setUsers } = useContext(ChatContext)
+
+  const navigate = useNavigate()
 
   async function handleSendMessage(message: string) {
     if (!connection) return
