@@ -1,17 +1,19 @@
-import { HubConnectionBuilder, LogLevel, HubConnection } from '@microsoft/signalr'
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import './App.css'
 import Lobby from './components/Lobby'
 import { Message } from './types/models'
 import Chat from './components/Chat'
 import { ChatHubMethod } from './constants/connection'
+import ChatContext from './containers/ChatProvider/ChatContext'
 
 function App() {
-  const [connection, setConnection] = useState<HubConnection | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
   const navigate = useNavigate()
+
+  const { setConnection } = useContext(ChatContext)
 
   async function handleRoomJoin(userName: string, roomName: string) {
     try {
@@ -37,34 +39,12 @@ function App() {
 
       setConnection(newConnection)
 
+      console.log(newConnection)
+
       navigate('/chat')
     } catch (error) {
       console.log(error)
       alert('Failed to join room')
-    }
-  }
-
-  async function handleSendMessage(message: string) {
-    if (!connection) return
-
-    try {
-      await connection.invoke(ChatHubMethod.SendMessage, message)
-    } catch (error) {
-      console.log(error)
-      alert('Failed to send message')
-    }
-  }
-
-  async function handleCloseConnection() {
-    if (!connection) return
-
-    try {
-      await connection.stop()
-
-      navigate('/')
-    } catch (error) {
-      console.log(error)
-      alert('Failed to leave room')
     }
   }
 
@@ -78,16 +58,7 @@ function App() {
       <div className="flex items-center justify-center max-w-x8-large mx-auto px-medium mt-x2-large">
         <Routes>
           <Route path="/" element={<Lobby onJoin={handleRoomJoin} />} />
-          <Route
-            path="chat"
-            element={
-              <Chat
-                messages={messages}
-                onSendMessage={handleSendMessage}
-                onCloseConnection={handleCloseConnection}
-              />
-            }
-          />
+          <Route path="chat" element={<Chat messages={messages} />} />
         </Routes>
       </div>
     </div>

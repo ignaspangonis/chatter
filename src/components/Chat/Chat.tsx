@@ -1,18 +1,55 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Button } from 'react-daisyui'
+import { useNavigate } from 'react-router-dom'
 
+import { ChatHubMethod } from 'src/constants/connection'
+import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import { Message } from 'src/types/models'
 
 import SendMessage from './SendMessage/SendMessage'
 
 type Props = {
   messages: Message[]
-  onSendMessage: (message: string) => void
-  onCloseConnection: () => void
 }
 
-export default function Chat({ messages, onSendMessage, onCloseConnection }: Props) {
+export default function Chat({ messages }: Props) {
   const messageRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
+
+  const { connection } = useContext(ChatContext)
+
+  console.log('a', connection)
+
+  useEffect(() => {
+    if (!connection) navigate('/')
+  }, [connection, navigate])
+
+  async function handleSendMessage(message: string) {
+    console.log('handleSendMessage', message)
+    if (!connection) return
+
+    console.log('handleSendMessage2', message)
+
+    try {
+      await connection.invoke(ChatHubMethod.SendMessage, message)
+    } catch (error) {
+      console.log(error)
+      alert('Failed to send message')
+    }
+  }
+
+  async function handleCloseConnection() {
+    if (!connection) return
+
+    try {
+      await connection.stop()
+
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+      alert('Failed to leave room')
+    }
+  }
 
   useEffect(() => {
     if (!messageRef.current) return
@@ -35,13 +72,13 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
   return (
     <div ref={messageRef} className="w-full">
       <div className="mb-large flex justify-end">
-        <Button onClick={onCloseConnection}>Leave Room</Button>
+        <Button onClick={handleCloseConnection}>Leave Room</Button>
       </div>
       <div>
         <div className="flex flex-col gap-regular overflow-auto min-h-[400px] rounded-lg mb-large p-regular bg-cg6">
           {messages.map(renderMessage)}
         </div>
-        <SendMessage onSubmit={onSendMessage} />
+        <SendMessage onSubmit={handleSendMessage} />
       </div>
     </div>
   )
