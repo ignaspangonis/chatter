@@ -51,6 +51,10 @@ const useChat = () => {
         setMessages(messages => [...messages, { userName, message }])
       })
 
+      newConnection.on(ChatHubMethod.UsersInRoom, (usersDto: string[]) => {
+        setUsers(usersDto)
+      })
+
       newConnection.onclose(event => {
         setConnection(null)
         setMessages([])
