@@ -14,9 +14,9 @@ type Props = {
 
 export default function Chat({ messages }: Props) {
   const messageRef = useRef<HTMLDivElement>(null)
-  const navigate = useNavigate()
+  const { connection, setConnection, users, setUsers } = useContext(ChatContext)
 
-  const { connection, setConnection } = useContext(ChatContext)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!connection) navigate('/')
@@ -48,6 +48,7 @@ export default function Chat({ messages }: Props) {
       await connection.stop()
 
       setConnection(null)
+      setUsers([])
       navigate('/')
     } catch (error) {
       console.log(error)
@@ -68,6 +69,13 @@ export default function Chat({ messages }: Props) {
     <div className="w-full">
       <div className="mb-large flex justify-end">
         <Button onClick={handleCloseConnection}>Leave Room</Button>
+      </div>
+
+      <div>
+        <h2>Connected users</h2>
+        {users.map((user, index) => (
+          <div key={index}>{user}</div>
+        ))}
       </div>
 
       <div
