@@ -22,6 +22,15 @@ export default function Chat({ messages }: Props) {
     if (!connection) navigate('/')
   }, [connection, navigate])
 
+  useEffect(() => {
+    if (!messageRef.current) return
+
+    const { scrollHeight, clientHeight } = messageRef.current
+
+    // TODO: make this work
+    messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
+  }, [messages])
+
   async function handleSendMessage(message: string) {
     if (!connection) return
 
@@ -46,15 +55,6 @@ export default function Chat({ messages }: Props) {
       alert('Failed to leave room')
     }
   }
-
-  useEffect(() => {
-    if (!messageRef.current) return
-
-    const { scrollHeight, clientHeight } = messageRef.current
-
-    // TODO: make this work
-    messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
-  }, [messages])
 
   const renderMessage = (message: Message, index: number) => (
     <div className="user-message" role="gridcell" tabIndex={0} key={index}>
