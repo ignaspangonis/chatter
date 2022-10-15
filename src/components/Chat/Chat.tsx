@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef } from 'react'
 import { Button } from 'react-daisyui'
 import { useNavigate } from 'react-router-dom'
 
-import { ChatHubMethod } from 'src/constants/connection'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import { Message } from 'src/types/models'
 
@@ -10,11 +9,13 @@ import SendMessage from './SendMessage/SendMessage'
 
 type Props = {
   messages: Message[]
+  onCloseConnection: () => void
+  onSendMessage: (message: string) => void
 }
 
-export default function Chat({ messages }: Props) {
+export default function Chat({ messages, onCloseConnection, onSendMessage }: Props) {
   const messageRef = useRef<HTMLDivElement>(null)
-  const { connection, setConnection, users, setUsers } = useContext(ChatContext)
+  const { connection, users } = useContext(ChatContext)
 
   const navigate = useNavigate()
 
@@ -30,32 +31,6 @@ export default function Chat({ messages }: Props) {
     messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
   }, [messages])
 
-  async function handleSendMessage(message: string) {
-    if (!connection) return
-
-    try {
-      await connection.invoke(ChatHubMethod.SendMessage, message)
-    } catch (error) {
-      console.log(error)
-      alert('Failed to send message')
-    }
-  }
-
-  async function handleCloseConnection() {
-    if (!connection) return
-
-    try {
-      await connection.stop()
-
-      setConnection(null)
-      setUsers([])
-      navigate('/')
-    } catch (error) {
-      console.log(error)
-      alert('Failed to leave room')
-    }
-  }
-
   const renderMessage = (message: Message, index: number) => (
     <div className="text-right pr-small" role="gridcell" tabIndex={0} key={index}>
       <div className="text-sm">{message.userName}</div>
@@ -68,7 +43,7 @@ export default function Chat({ messages }: Props) {
   return (
     <div className="w-full">
       <div className="mb-large flex justify-end">
-        <Button onClick={handleCloseConnection}>Leave Room</Button>
+        <Button onClick={onCloseConnection}>Leave Room</Button>
       </div>
 
       <div>
@@ -85,7 +60,7 @@ export default function Chat({ messages }: Props) {
         {messages.map(renderMessage)}
       </div>
 
-      <SendMessage onSubmit={handleSendMessage} />
+      <SendMessage onSubmit={onSendMessage} />
     </div>
   )
 }

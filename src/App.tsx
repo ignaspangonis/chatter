@@ -1,51 +1,12 @@
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import Lobby from './components/Lobby'
-import { Message } from './types/models'
-import Chat from './components/Chat'
-import { ChatHubMethod } from './constants/connection'
-import ChatContext from './containers/ChatProvider/ChatContext'
 
-const CHAT_API_URL = 'https://localhost:7276/chat'
+import Chat from './components/Chat'
+import useChat from './hooks/useChat'
 
 function App() {
-  const [messages, setMessages] = useState<Message[]>([])
-  const navigate = useNavigate()
-
-  const { setConnection } = useContext(ChatContext)
-
-  async function handleRoomJoin(userName: string, roomName: string) {
-    try {
-      const newConnection = new HubConnectionBuilder()
-        .withUrl(CHAT_API_URL)
-        .configureLogging(LogLevel.Information)
-        .build()
-
-      newConnection.on(ChatHubMethod.ReceiveMessage, (userName, message) => {
-        setMessages(messages => [...messages, { userName, message }])
-      })
-
-      newConnection.onclose(event => {
-        setConnection(null)
-        setMessages([])
-      })
-
-      await newConnection.start()
-      await newConnection.invoke(ChatHubMethod.JoinRoom, {
-        UserName: userName,
-        RoomName: roomName,
-      })
-
-      setConnection(newConnection)
-
-      navigate('/chat')
-    } catch (error) {
-      console.log(error)
-      alert('Failed to join room')
-    }
-  }
+  const { messages, handleRoomJoin, handleCloseConnection, handleSendMessage } = useChat()
 
   return (
     <div className="w-full min-h-screen">
@@ -57,7 +18,16 @@ function App() {
       <div className="flex items-center justify-center max-w-x8-large mx-auto px-medium mt-x2-large">
         <Routes>
           <Route path="/" element={<Lobby onJoin={handleRoomJoin} />} />
-          <Route path="chat" element={<Chat messages={messages} />} />
+          <Route
+            path="chat"
+            element={
+              <Chat
+                messages={messages}
+                onCloseConnection={handleCloseConnection}
+                onSendMessage={handleSendMessage}
+              />
+            }
+          />
         </Routes>
       </div>
     </div>
