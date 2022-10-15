@@ -57,7 +57,7 @@ export default function Chat({ messages }: Props) {
   }
 
   const renderMessage = (message: Message, index: number) => (
-    <div className="user-message" role="gridcell" tabIndex={0} key={index}>
+    <div className="text-right pr-small" role="gridcell" tabIndex={0} key={index}>
       <div className="text-sm">{message.userName}</div>
       <p className="inline-flex mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary">
         {message.message}

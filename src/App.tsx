@@ -2,7 +2,6 @@ import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 
-import './App.css'
 import Lobby from './components/Lobby'
 import { Message } from './types/models'
 import Chat from './components/Chat'
@@ -49,7 +48,7 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className="w-full min-h-screen">
       <div className="flex w-full items-center justify-center py-large">
         <h1 className="text-4xl font-bold">Chatter</h1>
       </div>
