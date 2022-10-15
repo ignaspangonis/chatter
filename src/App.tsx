@@ -39,8 +39,6 @@ function App() {
 
       setConnection(newConnection)
 
-      console.log(newConnection)
-
       navigate('/chat')
     } catch (error) {
       console.log(error)
