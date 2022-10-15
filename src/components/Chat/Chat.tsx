@@ -26,9 +26,11 @@ export default function Chat({ messages, onCloseConnection, onSendMessage }: Pro
   useEffect(() => {
     if (!messageRef.current) return
 
-    const { scrollHeight, clientHeight } = messageRef.current
-
-    messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
+    messageRef.current.scrollTo({
+      top: messageRef.current.scrollHeight - messageRef.current.clientHeight,
+      behavior: 'smooth',
+      left: 0,
+    })
   }, [messages])
 
   const renderMessage = (message: Message, index: number) => (
@@ -46,21 +48,24 @@ export default function Chat({ messages, onCloseConnection, onSendMessage }: Pro
         <Button onClick={onCloseConnection}>Leave Room</Button>
       </div>
 
-      <div>
-        <h2>Connected users</h2>
-        {users.map((user, index) => (
-          <div key={index}>{user}</div>
-        ))}
-      </div>
+      <div className="flex gap-large justify-between">
+        <div>
+          <h2 className="text-lg">Connected users</h2>
+          {users.map((user, index) => (
+            <div key={index}>{user}</div>
+          ))}
+        </div>
 
-      <div
-        className="h-[420px] overflow-y-auto flex flex-col gap-regular rounded-lg mb-large p-regular bg-cg6"
-        ref={messageRef}
-      >
-        {messages.map(renderMessage)}
+        <div className="flex-1">
+          <div
+            className="h-[420px] overflow-y-auto flex flex-col gap-regular rounded-lg mb-large p-regular bg-cg6"
+            ref={messageRef}
+          >
+            {messages.map(renderMessage)}
+          </div>
+          <SendMessage onSubmit={onSendMessage} />
+        </div>
       </div>
-
-      <SendMessage onSubmit={onSendMessage} />
     </div>
   )
 }
