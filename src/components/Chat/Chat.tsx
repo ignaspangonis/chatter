@@ -23,16 +23,14 @@ export default function Chat({ messages, onSendMessage, onCloseConnection }: Pro
     messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
   }, [messages])
 
-  function renderMessage(message: Message) {
-    return (
-      <div className="user-message" role="gridcell" tabIndex={0}>
-        <div className="text-sm">{message.userName}</div>
-        <p className="inline-flex mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary">
-          {message.message}
-        </p>
-      </div>
-    )
-  }
+  const renderMessage = (message: Message, index: number) => (
+    <div className="user-message" role="gridcell" tabIndex={0} key={index}>
+      <div className="text-sm">{message.userName}</div>
+      <p className="inline-flex mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary">
+        {message.message}
+      </p>
+    </div>
+  )
 
   return (
     <div ref={messageRef} className="w-full">

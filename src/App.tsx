@@ -1,4 +1,5 @@
 import { HubConnectionBuilder, LogLevel, HubConnection } from '@microsoft/signalr'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 import './App.css'
@@ -10,6 +11,7 @@ import { ChatHubMethod } from './constants/connection'
 function App() {
   const [connection, setConnection] = useState<HubConnection | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
+  const navigate = useNavigate()
 
   async function handleRoomJoin(userName: string, roomName: string) {
     try {
@@ -32,7 +34,10 @@ function App() {
         UserName: userName,
         RoomName: roomName,
       })
+
       setConnection(newConnection)
+
+      navigate('/chat')
     } catch (error) {
       console.log(error)
       alert('Failed to join room')
@@ -55,6 +60,8 @@ function App() {
 
     try {
       await connection.stop()
+
+      navigate('/')
     } catch (error) {
       console.log(error)
       alert('Failed to leave room')
@@ -69,15 +76,19 @@ function App() {
 
       <hr className="border-cg5" />
       <div className="flex items-center justify-center max-w-x8-large mx-auto px-medium mt-x2-large">
-        {connection ? (
-          <Chat
-            messages={messages}
-            onSendMessage={handleSendMessage}
-            onCloseConnection={handleCloseConnection}
+        <Routes>
+          <Route path="/" element={<Lobby onJoin={handleRoomJoin} />} />
+          <Route
+            path="chat"
+            element={
+              <Chat
+                messages={messages}
+                onSendMessage={handleSendMessage}
+                onCloseConnection={handleCloseConnection}
+              />
+            }
           />
-        ) : (
-          <Lobby onJoin={handleRoomJoin} />
-        )}
+        </Routes>
       </div>
     </div>
   )
