@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-
 import { Button, Form, Input, InputGroup } from 'react-daisyui'
 
 type Props = {
