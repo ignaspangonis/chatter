@@ -27,7 +27,6 @@ export default function Chat({ messages }: Props) {
 
     const { scrollHeight, clientHeight } = messageRef.current
 
-    // TODO: make this work
     messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
   }, [messages])
 
@@ -66,16 +65,19 @@ export default function Chat({ messages }: Props) {
   )
 
   return (
-    <div ref={messageRef} className="w-full">
+    <div className="w-full">
       <div className="mb-large flex justify-end">
         <Button onClick={handleCloseConnection}>Leave Room</Button>
       </div>
-      <div>
-        <div className="flex flex-col gap-regular overflow-auto min-h-[400px] rounded-lg mb-large p-regular bg-cg6">
-          {messages.map(renderMessage)}
-        </div>
-        <SendMessage onSubmit={handleSendMessage} />
+
+      <div
+        className="h-[420px] overflow-y-auto flex flex-col gap-regular rounded-lg mb-large p-regular bg-cg6"
+        ref={messageRef}
+      >
+        {messages.map(renderMessage)}
       </div>
+
+      <SendMessage onSubmit={handleSendMessage} />
     </div>
   )
 }
