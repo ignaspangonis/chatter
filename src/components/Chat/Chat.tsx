@@ -18,17 +18,12 @@ export default function Chat({ messages }: Props) {
 
   const { connection } = useContext(ChatContext)
 
-  console.log('a', connection)
-
   useEffect(() => {
     if (!connection) navigate('/')
   }, [connection, navigate])
 
   async function handleSendMessage(message: string) {
-    console.log('handleSendMessage', message)
     if (!connection) return
-
-    console.log('handleSendMessage2', message)
 
     try {
       await connection.invoke(ChatHubMethod.SendMessage, message)
