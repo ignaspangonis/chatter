@@ -46,7 +46,7 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
   )
 
   return (
-    <div className="w-full">
+    <section className="w-full">
       <div className="mb-large flex justify-between">
         <h2 className="text-2xl font-bold">Room: {roomName}</h2>
         <Button onClick={onLeaveRoom}>Leave Room</Button>
@@ -54,7 +54,7 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
 
       <div className="flex gap-large justify-between">
         <div>
-          <h2 className="text-lg font-bold">Connected users</h2>
+          <h3 className="text-lg font-bold">Connected users</h3>
           {users.map((user, index) => (
             <div key={index}>{user}</div>
           ))}
@@ -70,6 +70,6 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
           <SendMessage onSubmit={onSendMessage} />
         </div>
       </div>
-    </div>
+    </section>
   )
 }
