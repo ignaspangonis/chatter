@@ -16,7 +16,7 @@ type Props = {
 
 export default function Chat({ messages, onCloseConnection, onSendMessage }: Props) {
   const messageRef = useRef<HTMLDivElement>(null)
-  const { connection, users } = useContext(ChatContext)
+  const { connection, roomName, users } = useContext(ChatContext)
 
   const navigate = useNavigate()
 
@@ -47,7 +47,8 @@ export default function Chat({ messages, onCloseConnection, onSendMessage }: Pro
 
   return (
     <div className="w-full">
-      <div className="mb-large flex justify-end">
+      <div className="mb-large flex justify-between">
+        <h2 className="text-2xl font-bold">Room: {roomName}</h2>
         <Button onClick={onCloseConnection}>Leave Room</Button>
       </div>
 

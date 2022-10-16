@@ -11,7 +11,7 @@ const CHAT_API_URL = 'https://localhost:7276/chat'
 
 const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([])
-  const { connection, setConnection, setUsers } = useContext(ChatContext)
+  const { connection, setConnection, setRoomName, setUsers } = useContext(ChatContext)
 
   const navigate = useNavigate()
 
@@ -34,6 +34,7 @@ const useChat = () => {
 
       setConnection(null)
       setUsers([])
+      setRoomName(null)
       navigate(Route.Home)
     } catch (error) {
       console.log(error)
@@ -68,6 +69,7 @@ const useChat = () => {
       })
 
       setConnection(newConnection)
+      setRoomName(roomName)
 
       navigate(Route.Chat)
     } catch (error) {
