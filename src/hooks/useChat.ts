@@ -1,4 +1,4 @@
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
 import { useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 
@@ -26,16 +26,37 @@ const useChat = () => {
     }
   }
 
+  function handleConnectionClosed() {
+    setConnection(null)
+    setRoomName(null)
+    setUsers([])
+    setMessages([])
+
+    navigate(Route.Home)
+  }
+
+  function handleConnectionOpened(newConnection: HubConnection, roomName: string) {
+    setConnection(newConnection)
+    setRoomName(roomName)
+
+    navigate(Route.Chat)
+  }
+
+  function handleGetUsersInRoom(users: string[]) {
+    setUsers(users)
+  }
+
+  function handleGetMessage(userName: string, content: string) {
+    setMessages(messages => [...messages, { userName, content }])
+  }
+
   async function handleLeaveRoom() {
     if (!connection) return
 
     try {
       await connection.stop()
 
-      setConnection(null)
-      setUsers([])
-      setRoomName(null)
-      navigate(Route.Home)
+      handleConnectionClosed()
     } catch (error) {
       console.log(error)
       alert('Failed to leave room')
@@ -49,18 +70,9 @@ const useChat = () => {
         .configureLogging(LogLevel.Information)
         .build()
 
-      newConnection.on(ChatHubMethod.ReceiveMessage, (userName, content) => {
-        setMessages(messages => [...messages, { userName, content }])
-      })
-
-      newConnection.on(ChatHubMethod.UsersInRoom, (usersDto: string[]) => {
-        setUsers(usersDto)
-      })
-
-      newConnection.onclose(event => {
-        setConnection(null)
-        setMessages([])
-      })
+      newConnection.on(ChatHubMethod.ReceiveMessage, handleGetMessage)
+      newConnection.on(ChatHubMethod.UsersInRoom, handleGetUsersInRoom)
+      newConnection.onclose(handleConnectionClosed)
 
       await newConnection.start()
       await newConnection.invoke(ChatHubMethod.JoinRoom, {
@@ -68,10 +80,7 @@ const useChat = () => {
         RoomName: roomName,
       })
 
-      setConnection(newConnection)
-      setRoomName(roomName)
-
-      navigate(Route.Chat)
+      handleConnectionOpened(newConnection, roomName)
     } catch (error) {
       console.log(error)
       alert('Failed to join room')
