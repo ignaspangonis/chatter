@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import { Button } from 'react-daisyui'
 import { useNavigate } from 'react-router-dom'
+import { Route } from 'src/constants/routes'
 
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import { Message } from 'src/types/models'
@@ -20,7 +21,9 @@ export default function Chat({ messages, onCloseConnection, onSendMessage }: Pro
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!connection) navigate('/')
+    if (!connection) {
+      navigate(Route.Home)
+    }
   }, [connection, navigate])
 
   useEffect(() => {
@@ -50,7 +53,7 @@ export default function Chat({ messages, onCloseConnection, onSendMessage }: Pro
 
       <div className="flex gap-large justify-between">
         <div>
-          <h2 className="text-lg">Connected users</h2>
+          <h2 className="text-lg font-bold">Connected users</h2>
           {users.map((user, index) => (
             <div key={index}>{user}</div>
           ))}

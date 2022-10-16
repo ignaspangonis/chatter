@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 
-import Lobby from './components/Lobby'
-
-import Chat from './components/Chat'
-import useChat from './hooks/useChat'
+import Lobby from 'src/components/Lobby'
+import Chat from 'src/components/Chat'
+import useChat from 'src/hooks/useChat'
+import { Route as Path } from 'src/constants/routes'
 
 function App() {
   const { messages, handleRoomJoin, handleCloseConnection, handleSendMessage } = useChat()
@@ -17,9 +17,9 @@ function App() {
       <hr className="border-cg5" />
       <div className="flex items-center justify-center max-w-x8-large mx-auto px-medium mt-x2-large">
         <Routes>
-          <Route path="/" element={<Lobby onJoin={handleRoomJoin} />} />
+          <Route path={Path.Home} element={<Lobby onJoin={handleRoomJoin} />} />
           <Route
-            path="chat"
+            path={Path.Chat}
             element={
               <Chat
                 messages={messages}

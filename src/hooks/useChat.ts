@@ -5,6 +5,7 @@ import { useContext, useState } from 'react'
 import { Message } from 'src/types/models'
 import { ChatHubMethod } from 'src/constants/connection'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
+import { Route } from '../constants/routes'
 
 const CHAT_API_URL = 'https://localhost:7276/chat'
 
@@ -33,7 +34,7 @@ const useChat = () => {
 
       setConnection(null)
       setUsers([])
-      navigate('/')
+      navigate(Route.Home)
     } catch (error) {
       console.log(error)
       alert('Failed to leave room')
@@ -68,7 +69,7 @@ const useChat = () => {
 
       setConnection(newConnection)
 
-      navigate('/chat')
+      navigate(Route.Chat)
     } catch (error) {
       console.log(error)
       alert('Failed to join room')

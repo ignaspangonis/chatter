@@ -56,26 +56,6 @@ module.exports = {
       elevated: '0 8px 24px rgba(17, 17, 17, 0.24)',
     },
     extend: {
-      fontSize: {
-        h01: ['21px', '28px'],
-        h02: ['24px', '36px'],
-        h03: ['32px', '43px'],
-        h04: ['42px', '58px'],
-        h05: ['64px', '85px'],
-
-        body: ['20px', '31px'],
-        title: ['16px', '22px'],
-        caption: ['12px', '16px'],
-
-        // Mobile web sizes
-        'm-h01': ['21px', '28px'],
-        'm-h02': ['20px', '28px'],
-        'm-h03': ['24px', '36px'],
-        'm-h04': ['32px', '48px'],
-        'm-h05': ['46px', '58px'],
-        'm-body': ['16px', '24px'],
-      },
-
       aspectRatio: {
         '4/3': '4 / 3',
       },
