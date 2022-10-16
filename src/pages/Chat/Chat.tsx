@@ -40,7 +40,7 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
     <div className="text-right pr-small" role="gridcell" tabIndex={0} key={index}>
       <div className="text-sm">{message.userName}</div>
       <p className="inline-flex mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary">
-        {message.message}
+        {message.content}
       </p>
     </div>
   )

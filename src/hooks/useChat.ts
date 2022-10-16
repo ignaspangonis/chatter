@@ -49,8 +49,8 @@ const useChat = () => {
         .configureLogging(LogLevel.Information)
         .build()
 
-      newConnection.on(ChatHubMethod.ReceiveMessage, (userName, message) => {
-        setMessages(messages => [...messages, { userName, message }])
+      newConnection.on(ChatHubMethod.ReceiveMessage, (userName, content) => {
+        setMessages(messages => [...messages, { userName, content }])
       })
 
       newConnection.on(ChatHubMethod.UsersInRoom, (usersDto: string[]) => {
