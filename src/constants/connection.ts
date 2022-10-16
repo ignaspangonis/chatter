@@ -4,3 +4,5 @@ export enum ChatHubMethod {
   SendMessage = 'SendMessage',
   UsersInRoom = 'UsersInRoom',
 }
+
+export const CHAT_API_URL = 'https://localhost:7276/chat'

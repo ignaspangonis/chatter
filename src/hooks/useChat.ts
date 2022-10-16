@@ -3,11 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 
 import { Message } from 'src/types/models'
-import { ChatHubMethod } from 'src/constants/connection'
+import { ChatHubMethod, CHAT_API_URL } from 'src/constants/connection'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
-import { Route } from '../constants/routes'
-
-const CHAT_API_URL = 'https://localhost:7276/chat'
+import { Route } from 'src/constants/routes'
 
 const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([])
