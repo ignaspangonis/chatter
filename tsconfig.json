@@ -21,7 +21,6 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@/src/components/*": ["components/*"],
       "@/src/pages/*": ["pages/*"],
       "@/src/styles/*": ["styles/*"],
       "@/src/*": ["*"],
