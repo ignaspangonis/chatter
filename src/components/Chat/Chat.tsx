@@ -10,11 +10,11 @@ import SendMessage from './SendMessage/SendMessage'
 
 type Props = {
   messages: Message[]
-  onCloseConnection: () => void
+  onLeaveRoom: () => void
   onSendMessage: (message: string) => void
 }
 
-export default function Chat({ messages, onCloseConnection, onSendMessage }: Props) {
+export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
   const messageRef = useRef<HTMLDivElement>(null)
   const { connection, roomName, users } = useContext(ChatContext)
 
@@ -49,7 +49,7 @@ export default function Chat({ messages, onCloseConnection, onSendMessage }: Pro
     <div className="w-full">
       <div className="mb-large flex justify-between">
         <h2 className="text-2xl font-bold">Room: {roomName}</h2>
-        <Button onClick={onCloseConnection}>Leave Room</Button>
+        <Button onClick={onLeaveRoom}>Leave Room</Button>
       </div>
 
       <div className="flex gap-large justify-between">

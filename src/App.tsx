@@ -6,7 +6,7 @@ import useChat from 'src/hooks/useChat'
 import { Route as Path } from 'src/constants/routes'
 
 function App() {
-  const { messages, handleRoomJoin, handleCloseConnection, handleSendMessage } = useChat()
+  const { messages, handleJoinRoom, handleLeaveRoom, handleSendMessage } = useChat()
 
   return (
     <div className="w-full min-h-screen">
@@ -17,13 +17,13 @@ function App() {
       <hr className="border-cg5" />
       <div className="flex items-center justify-center max-w-x8-large mx-auto px-medium mt-x2-large">
         <Routes>
-          <Route path={Path.Home} element={<Lobby onJoin={handleRoomJoin} />} />
+          <Route path={Path.Home} element={<Lobby onJoin={handleJoinRoom} />} />
           <Route
             path={Path.Chat}
             element={
               <Chat
                 messages={messages}
-                onCloseConnection={handleCloseConnection}
+                onLeaveRoom={handleLeaveRoom}
                 onSendMessage={handleSendMessage}
               />
             }

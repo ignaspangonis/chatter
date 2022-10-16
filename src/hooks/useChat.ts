@@ -26,7 +26,7 @@ const useChat = () => {
     }
   }
 
-  async function handleCloseConnection() {
+  async function handleLeaveRoom() {
     if (!connection) return
 
     try {
@@ -42,7 +42,7 @@ const useChat = () => {
     }
   }
 
-  async function handleRoomJoin(userName: string, roomName: string) {
+  async function handleJoinRoom(userName: string, roomName: string) {
     try {
       const newConnection = new HubConnectionBuilder()
         .withUrl(CHAT_API_URL)
@@ -78,7 +78,12 @@ const useChat = () => {
     }
   }
 
-  return { messages, handleRoomJoin, handleCloseConnection, handleSendMessage }
+  return {
+    messages,
+    handleJoinRoom,
+    handleLeaveRoom,
+    handleSendMessage,
+  }
 }
 
 export default useChat
