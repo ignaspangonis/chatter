@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { Button } from 'react-daisyui'
 import { useNavigate } from 'react-router-dom'
-import { Route } from 'src/constants/routes'
+import { Button } from 'react-daisyui'
 
+import { Route } from 'src/constants/routes'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import { Message } from 'src/types/models'
 
