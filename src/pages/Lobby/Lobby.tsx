@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Button, Form, Input, InputGroup } from 'react-daisyui'
 
-import { WEATHER_API_URL } from '../../constants/connection'
-import { WeatherDto } from '../../types/dtos'
+import { WEATHER_API_URL } from 'src/constants/connection'
+import { WeatherDto } from 'src/types/dtos'
 
 type Props = {
   onJoin: (userName: string, roomName: string) => void

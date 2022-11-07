@@ -6,7 +6,7 @@ import { Route } from 'src/constants/routes'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import { Message } from 'src/types/models'
 
-import SendMessage from './SendMessage/SendMessage'
+import SendMessage from './SendMessage'
 
 type Props = {
   messages: Message[]

@@ -23,7 +23,11 @@
     "paths": {
       "@/src/pages/*": ["pages/*"],
       "@/src/styles/*": ["styles/*"],
-      "@/src/*": ["*"],
+      "@/src/constants/*": ["constants/*"],
+      "@/src/containers/*": ["containers/*"],
+      "@/src/components/*": ["components/*"],
+      "@/src/hooks/*": ["hooks/*"],
+      "@/src/types/*": ["types/*"],
     }
   },
   "include": [
