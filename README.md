@@ -1,14 +1,17 @@
 # Chatter
 
+## Prerequisites
+
+1. Run `npm -v` to make sure you have `npm` installed. [Read more about npm](https://docs.npmjs.com/getting-started).
+2. Since this is the frontend app, you'll need to pull and run the [backend app](https://github.com/ignaspangonis/chatter-service/)
+
 ## Install and run
 
 In the project directory, run:
 
-1. `npm -v` to make sure you have `npm` installed. [Read more about npm](https://docs.npmjs.com/getting-started).
+1. `npm install` to install dependencies
 
-2. `npm install` to install dependencies
-
-3. `npm start` to run the app in the development mode.\
+2. `npm start` to run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
