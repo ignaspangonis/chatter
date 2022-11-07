@@ -39,7 +39,7 @@ export default function Lobby({ onJoin }: Props) {
     <div className="flex flex-col gap-large">
       <div className="text-center">
         {weather
-          ? `It's ${weather.summary} today - temperature is ${weather.temperatureC}`
+          ? `It's ${weather.summary} today - temperature is ${weather.temperatureC}°C`
           : 'Loading weather...'}
       </div>
       <Form
