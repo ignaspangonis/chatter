@@ -6,9 +6,9 @@ In the project directory, run:
 
 1. To make sure you have `npm` installed, run `npm -v`.
 
-2. `npm install` - installs dependencies
+2. Run `npm install` to install dependencies
 
-3. `npm start` - runs the app in the development mode.\
+3. Run `npm start` to run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
