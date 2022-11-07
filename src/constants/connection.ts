@@ -5,4 +5,7 @@ export enum ChatHubMethod {
   UsersInRoom = 'UsersInRoom',
 }
 
-export const CHAT_API_URL = 'https://localhost:7276/chat'
+const ROOT_URL = 'https://localhost:7276'
+
+export const CHAT_API_URL = `${ROOT_URL}/chat`
+export const WEATHER_API_URL = `${ROOT_URL}/weather`
