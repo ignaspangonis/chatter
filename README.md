@@ -4,7 +4,7 @@
 
 In the project directory, run:
 
-1. To make sure you have `npm` installed, run `npm -v`.
+1. To make sure you have `npm` installed, run `npm -v`. [Read more about npm](https://docs.npmjs.com/getting-started).
 
 2. Run `npm install` to install dependencies
 
