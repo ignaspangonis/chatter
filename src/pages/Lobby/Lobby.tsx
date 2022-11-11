@@ -48,15 +48,15 @@ export default function Lobby({ onJoin }: Props) {
 
   const renderWeather = () => {
     if (uiState === 'loading') {
-      return <p>Loading...</p>
+      return 'Loading...'
     }
 
     if (uiState === 'error') {
-      return <p>Something went wrong...</p>
+      return 'Something went wrong...'
     }
 
     if (!weather) {
-      return <p>Weather not available</p>
+      return 'Weather not available'
     }
 
     return `It's ${weather.summary} today - temperature is ${weather.temperatureC}°C`
