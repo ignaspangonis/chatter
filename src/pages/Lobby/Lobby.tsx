@@ -46,7 +46,7 @@ export default function Lobby({ onJoin }: Props) {
     onJoin(userName, roomName)
   }
 
-  const renderWeather = () => {
+  const renderWeatherText = () => {
     if (uiState === 'loading') {
       return 'Loading...'
     }
@@ -64,7 +64,7 @@ export default function Lobby({ onJoin }: Props) {
 
   return (
     <div className="flex flex-col gap-large">
-      <div className="text-center">{renderWeather()}</div>
+      <div className="text-center">{renderWeatherText()}</div>
       <Form
         className="flex flex-col justify-center items-center w-full gap-medium"
         onSubmit={handleSubmit}
