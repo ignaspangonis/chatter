@@ -3,7 +3,7 @@
 ## Prerequisites
 
 1. Run `npm -v` to make sure you have `npm` installed. [Read more about npm](https://docs.npmjs.com/getting-started).
-2. Since this is the frontend app, you'll need to pull and run the [backend app](https://github.com/ignaspangonis/chatter-service/)
+2. Since this is the frontend app, before running it you first need to pull and run the [backend app](https://github.com/ignaspangonis/chatter-service/)
 
 ## Install and run
 
