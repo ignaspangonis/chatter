@@ -6,15 +6,13 @@ import { UiState } from 'src/types/ui'
 
 export default function Wheather() {
   const [weather, setWeather] = useState<WeatherDto>()
-  const [uiState, setUiState] = useState<UiState>('idle')
+  const [uiState, setUiState] = useState<UiState>('loading')
 
   useEffect(() => {
-    setUiState('loading')
-
     fetch(WEATHER_API_URL)
       .then(response => response.json())
       .then(data => {
-        setWeather(data[0])
+        setWeather(data)
         setUiState('idle')
       })
       .catch(error => {
@@ -25,18 +23,18 @@ export default function Wheather() {
 
   const renderWeatherText = () => {
     if (uiState === 'loading') {
-      return 'Loading...'
+      return 'Loading weather...'
     }
 
     if (uiState === 'error') {
-      return 'Something went wrong...'
+      return 'Failed to fetch the weather. Try again later.'
     }
 
     if (!weather) {
-      return 'Weather not available'
+      return 'Sorry, weather is not available'
     }
 
-    return `It's ${weather.summary} today - temperature is ${weather.temperatureC}°C`
+    return `It's TODO today - temperature is ${weather.temperature}°C`
   }
 
   return <div className="text-center">{renderWeatherText()}</div>
