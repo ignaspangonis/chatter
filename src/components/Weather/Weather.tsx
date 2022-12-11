@@ -37,7 +37,7 @@ export default function Wheather() {
       return 'Sorry, weather is not available'
     }
 
-    return `It's TODO today - temperature is ${weather.temperature}°C`
+    return `It's ${weather.summary} today - temperature is ${weather.temperature}°C`
   }
 
   return <div className="text-center">{renderWeatherText()}</div>
