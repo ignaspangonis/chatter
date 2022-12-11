@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { WEATHER_API_URL } from 'src/constants/connection'
+import { getCurrentWeather } from 'src/data/api'
 import { WeatherDto } from 'src/types/dtos'
 import { UiState } from 'src/types/ui'
 
@@ -9,16 +9,19 @@ export default function Wheather() {
   const [uiState, setUiState] = useState<UiState>('loading')
 
   useEffect(() => {
-    fetch(WEATHER_API_URL)
-      .then(response => response.json())
-      .then(data => {
-        setWeather(data)
-        setUiState('idle')
-      })
-      .catch(error => {
-        console.error(error)
+    async function fetchWeather() {
+      const weather = await getCurrentWeather()
+
+      if ('error' in weather) {
         setUiState('error')
-      })
+        return
+      }
+
+      setWeather(weather)
+      setUiState('idle')
+    }
+
+    fetchWeather()
   }, [])
 
   const renderWeatherText = () => {

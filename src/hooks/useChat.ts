@@ -2,13 +2,14 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signal
 import { useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 
-import { Message } from 'src/types/models'
+import { ExtendedMessageDto, MessageModel } from 'src/types/models'
 import { ChatHubMethod, CHAT_API_URL } from 'src/constants/connection'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import { Route } from 'src/constants/routes'
+import { transformMessages } from 'src/data/transformers/message'
 
 const useChat = () => {
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<MessageModel[]>([])
   const { connection, setConnection, setRoomName, setUsers } = useContext(ChatContext)
 
   const navigate = useNavigate()
@@ -44,6 +45,17 @@ const useChat = () => {
     setUsers(users)
   }
 
+  const handleReceiveMessageHistory =
+    (connection: HubConnection) => (messages: ExtendedMessageDto[]) => {
+      console.log(messages)
+
+      const transformedMessages = transformMessages(messages)
+
+      setMessages(messages => [...messages, ...transformedMessages])
+
+      connection.off(ChatHubMethod.ReceiveMessageHistory)
+    }
+
   function handleGetMessage(userName: string, content: string) {
     setMessages(messages => [...messages, { userName, content }])
   }
@@ -68,6 +80,10 @@ const useChat = () => {
         .configureLogging(LogLevel.Information)
         .build()
 
+      newConnection.on(
+        ChatHubMethod.ReceiveMessageHistory,
+        handleReceiveMessageHistory(newConnection),
+      )
       newConnection.on(ChatHubMethod.ReceiveMessage, handleGetMessage)
       newConnection.on(ChatHubMethod.UsersInRoom, handleGetUsersInRoom)
       newConnection.onclose(handleConnectionClosed)
