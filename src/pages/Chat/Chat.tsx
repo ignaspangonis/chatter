@@ -63,9 +63,12 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
   const renderAdminAction = () => {
     if (isAdmin)
       return (
-        <Button onClick={handleDeleteRoom} color="error" loading={deleteRoomUiState === 'loading'}>
-          Delete Room
-        </Button>
+        <button
+          className={`btn btn-error ${deleteRoomUiState === 'loading' ? 'loading' : ''}`}
+          onClick={handleDeleteRoom}
+        >
+          Delete room
+        </button>
       )
 
     return <Button onClick={handleMakeAdmin}>Make me admin</Button>
@@ -74,13 +77,17 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
   return (
     <section className="w-full">
       <div className="mb-large flex justify-end items-center gap-large">
-        <h2 className="text-2xl font-bold mr-auto">Room: {roomName}</h2>
-        <Button onClick={onLeaveRoom}>Leave Room</Button>
+        <h2 className="text-2xl font-bold mr-auto">
+          Room: <span className="text-accent">{roomName}</span>
+        </h2>
         {renderAdminAction()}
+        <button className="btn btn-primary" onClick={onLeaveRoom}>
+          Leave Room
+        </button>
       </div>
 
       <div className="flex gap-large justify-between">
-        <div>
+        <div className="mr-medium">
           <h3 className="text-lg font-bold">Connected users</h3>
           {users.map((user, index) => (
             <div key={index}>{user}</div>

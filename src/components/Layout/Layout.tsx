@@ -12,7 +12,7 @@ export default function Layout({ children }: Props) {
       </div>
 
       <hr className="border-cg5" />
-      <div className="flex items-center justify-center max-w-x8-large mx-auto px-medium mt-x2-large">
+      <div className="flex items-center justify-center max-w-[700px] mx-auto px-medium mt-x2-large">
         {children}
       </div>
     </div>
