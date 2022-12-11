@@ -5,7 +5,7 @@ type ErrorResponse = {
 
 type FetchResponse<T> = Promise<T | ErrorResponse>
 
-const fetchHelper = async <T>(path: string, config: RequestInit): Promise<T | ErrorResponse> => {
+const fetchHelper = async <T>(path: string, config: RequestInit): FetchResponse<T> => {
   const request = new Request(path, config)
   let response: Response
 
@@ -28,20 +28,20 @@ async function get<T>(path: string, config?: RequestInit) {
   return fetchHelper<T>(path, options)
 }
 
-async function post<T, U>(path: string, body: T, config?: RequestInit): FetchResponse<U> {
+async function post<T, U>(path: string, body: T, config?: RequestInit) {
   const options = { method: 'POST', body: JSON.stringify(body), ...config }
 
   return fetchHelper<U>(path, options)
 }
 
-async function put<T, U>(path: string, body: T, config?: RequestInit): FetchResponse<U> {
+async function put<T, U>(path: string, body: T, config?: RequestInit) {
   const options = { method: 'PUT', body: JSON.stringify(body), ...config }
 
   return fetchHelper<U>(path, options)
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
-async function _delete<T>(path: string): FetchResponse<T> {
+async function _delete<T>(path: string) {
   const options = {
     method: 'DELETE',
   }

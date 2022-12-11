@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button } from 'react-daisyui'
 
-import { Route } from 'src/constants/routes'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
+import useAdminActions from 'src/hooks/useAdminActions'
+
+import { Route } from 'src/constants/routes'
 import { MessageModel } from 'src/types/models'
 
 import SendMessage from './SendMessage'
@@ -17,9 +19,12 @@ type Props = {
 export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
   const messageRef = useRef<HTMLDivElement>(null)
   const { connection, roomName, users } = useContext(ChatContext)
-
-  const [searchParams, setSearchParams] = useSearchParams()
-  const isAdmin = searchParams.get('admin') === 'true'
+  const {
+    uiState: deleteRoomUiState,
+    handleDeleteRoom,
+    handleMakeAdmin,
+    isAdmin,
+  } = useAdminActions(onLeaveRoom)
 
   const navigate = useNavigate()
 
@@ -50,14 +55,9 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
   )
 
   const renderAdminAction = () => {
-    const handleDeleteRoom = () => {
-      // TODO: implement delete room
-    }
-    const handleMakeAdmin = () => setSearchParams({ admin: 'true' })
-
     if (isAdmin)
       return (
-        <Button onClick={handleDeleteRoom} color="error">
+        <Button onClick={handleDeleteRoom} color="error" loading={deleteRoomUiState === 'loading'}>
           Delete Room
         </Button>
       )
