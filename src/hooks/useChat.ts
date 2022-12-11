@@ -2,7 +2,8 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signal
 import { useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 
-import { ExtendedMessageDto, MessageModel } from 'src/types/models'
+import { MessageModel } from 'src/types/models'
+import { ExtendedMessageDto } from 'src/types/dtos'
 import { ChatHubMethod, CHAT_API_URL } from 'src/constants/connection'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import { Route } from 'src/constants/routes'
