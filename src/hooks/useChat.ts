@@ -7,7 +7,7 @@ import { ExtendedMessageDto } from 'src/types/dtos'
 import { ChatHubMethod, CHAT_API_URL } from 'src/constants/connection'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import { Route } from 'src/constants/routes'
-import { transformMessages } from 'src/data/transformers/message'
+import { transformMessage, transformMessages } from 'src/data/transformers/message'
 
 const useChat = () => {
   const [messages, setMessages] = useState<MessageModel[]>([])
@@ -57,8 +57,10 @@ const useChat = () => {
       connection.off(ChatHubMethod.ReceiveMessageHistory)
     }
 
-  function handleGetMessage(userName: string, content: string) {
-    setMessages(messages => [...messages, { userName, content }])
+  function handleGetMessage(message: ExtendedMessageDto) {
+    const transformedMessage = transformMessage(message)
+
+    setMessages(messages => [...messages, transformedMessage])
   }
 
   async function handleLeaveRoom() {

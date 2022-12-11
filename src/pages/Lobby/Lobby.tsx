@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Form, Input, InputGroup } from 'react-daisyui'
-import Wheather from 'src/components/Weather'
+
+import { Weather } from 'src/components'
 
 type Props = {
   onJoin: (userName: string, roomName: string) => void
@@ -28,7 +29,7 @@ export default function Lobby({ onJoin }: Props) {
 
   return (
     <div className="flex flex-col gap-large">
-      <Wheather />
+      <Weather />
       <Form
         className="flex flex-col justify-center items-center w-full gap-medium"
         onSubmit={handleSubmit}

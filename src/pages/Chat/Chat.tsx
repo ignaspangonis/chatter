@@ -5,6 +5,7 @@ import { Button } from 'react-daisyui'
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
 import useAdminActions from 'src/hooks/useAdminActions'
 
+import { getLocalisedDate } from 'src/libs/utils/date'
 import { Route } from 'src/constants/routes'
 import { MessageModel } from 'src/types/models'
 
@@ -28,6 +29,8 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
 
   const navigate = useNavigate()
 
+  console.log(messages)
+
   useEffect(() => {
     if (!connection) {
       alert('Connection was not found!')
@@ -48,7 +51,10 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
   const renderMessage = (message: MessageModel, index: number) => (
     <div className="text-right pr-small" role="gridcell" tabIndex={0} key={index}>
       <div className="text-sm">{message.userName}</div>
-      <p className="inline-flex mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary">
+      <p
+        className="inline-block text-left mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary tooltip tooltip-left wrap-words"
+        data-tip={getLocalisedDate(message.createdAt)}
+      >
         {message.content}
       </p>
     </div>

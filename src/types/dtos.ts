@@ -8,6 +8,6 @@ export type ExtendedMessageDto = {
   id: string
   author: string
   content: string
-  created_at: string
-  room_name: string
+  createdAt: string
+  roomName: string
 }

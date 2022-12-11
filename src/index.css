@@ -9,3 +9,8 @@ html, root {
   padding: 0;
   top: 0;
 }
+
+.wrap-words {
+  max-width: 300px;
+  overflow-wrap: break-word;
+}
