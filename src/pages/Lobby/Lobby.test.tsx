@@ -39,5 +39,6 @@ describe('<Lobby {...props} />', () => {
     userEvent.click(screen.getByText('Join'))
 
     await waitFor(() => expect(props.onJoin).toHaveBeenCalledTimes(1))
+    expect(props.onJoin).toHaveBeenCalledWith('John', '1')
   })
 })
