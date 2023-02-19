@@ -39,6 +39,7 @@ export default function Lobby({ onJoin }: Props) {
           <Input
             type="text"
             className="w-full"
+            value={userName}
             placeholder="Enter username"
             onChange={handleUserNameChange}
           />
@@ -48,6 +49,7 @@ export default function Lobby({ onJoin }: Props) {
           <Input
             type="text"
             className="w-full"
+            value={roomName}
             placeholder="Enter room"
             onChange={handleRoomNameChange}
           />
