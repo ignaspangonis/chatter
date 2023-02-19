@@ -48,8 +48,6 @@ const useChat = () => {
 
   const handleReceiveMessageHistory =
     (connection: HubConnection) => (messages: ExtendedMessageDto[]) => {
-      console.log(messages)
-
       const transformedMessages = transformMessages(messages)
 
       setMessages(messages => [...messages, ...transformedMessages])

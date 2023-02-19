@@ -29,8 +29,6 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
 
   const navigate = useNavigate()
 
-  console.log(messages)
-
   useEffect(() => {
     if (!connection) {
       alert('Connection was not found!')
