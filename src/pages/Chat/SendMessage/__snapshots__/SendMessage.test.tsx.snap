@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SendMessage {...props} /> renders correctly 1`] = `
+<div>
+  <form
+    class="SendMessage"
+  >
+    <div
+      class="flex flex-row gap-regular grow"
+    >
+      <input
+        class="input input-bordered mx-auto flex-grow"
+        placeholder="Aa"
+        value=""
+      />
+      <div
+        class=""
+      >
+        <button
+          class="btn"
+          disabled=""
+          type="submit"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
