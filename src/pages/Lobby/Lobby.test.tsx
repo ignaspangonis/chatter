@@ -34,8 +34,8 @@ describe('<Lobby {...props} />', () => {
   it('calls callback on form submit', async () => {
     render(<Lobby {...props} />)
 
-    userEvent.paste(screen.getByPlaceholderText('Enter username'), 'John')
-    userEvent.paste(screen.getByPlaceholderText('Enter room'), '1')
+    userEvent.type(screen.getByPlaceholderText('Enter username'), 'John')
+    userEvent.type(screen.getByPlaceholderText('Enter room'), '1')
     userEvent.click(screen.getByText('Join'))
 
     await waitFor(() => expect(props.onJoin).toHaveBeenCalledTimes(1))
