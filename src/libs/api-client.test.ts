@@ -1,5 +1,7 @@
 import nock from 'nock'
 
+import { withMockedConsoleError } from 'src/libs/utils/test'
+
 import api, { fetchHelper } from './api-client'
 
 describe('ApiClient', () => {
@@ -22,26 +24,24 @@ describe('ApiClient', () => {
       expect(response).toStrictEqual(expected)
     })
 
-    // TODO: fix console.error
-    it('handles network errors', async () => {
-      const mock = jest.spyOn(console, 'error').mockImplementation(() => {})
+    it(
+      'handles network errors',
+      withMockedConsoleError(async () => {
+        nock(host).get('/dummy').replyWithError({
+          message: 'Network request failed',
+          code: 'ECONNABORTED',
+        })
 
-      nock(host).get('/dummy').replyWithError({
-        message: 'Network request failed',
-        code: 'ECONNABORTED',
-      })
+        const response = await fetchHelper('http://localhost/dummy', { method: 'GET' })
 
-      const response = await fetchHelper('http://localhost/dummy', { method: 'GET' })
+        const badResponse = {
+          status: 0,
+          error: 'API error: TypeError: Network request failed',
+        }
 
-      const badResponse = {
-        status: 0,
-        error: 'API error: TypeError: Network request failed',
-      }
-
-      expect(response).toStrictEqual(badResponse)
-
-      mock.mockRestore()
-    })
+        expect(response).toStrictEqual(badResponse)
+      }),
+    )
   })
 
   describe('HTTP methods', () => {
