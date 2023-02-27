@@ -19,6 +19,14 @@ describe('<SendMessage {...props} />', () => {
     expect(container).toMatchSnapshot()
   })
 
+  it('displays user input', async () => {
+    render(<SendMessage {...props} />)
+
+    userEvent.type(screen.getByPlaceholderText('Aa'), 'Hello world!')
+
+    expect(await screen.findByDisplayValue('Hello world!')).toBeInTheDocument()
+  })
+
   it('calls callback on form submit', async () => {
     render(<SendMessage {...props} />)
 
