@@ -1,18 +1,18 @@
 import nock from 'nock'
 
-import api from './api-client'
+import api, { fetchHelper } from './api-client'
 
 describe('ApiClient', () => {
   const host = 'http://localhost'
 
   const goodResponseBody = { code: 200, content: 'test' }
 
-  describe('parseException', () => {
+  describe('fetchHelper', () => {
     it('handles generic HTTP errors', async () => {
       const badResponseBody = { code: 401, statusText: 'statusText', error: 'error' }
       nock(host).get('/dummy').reply(401, badResponseBody)
 
-      const response = await api.get('http://localhost/dummy')
+      const response = await fetchHelper('http://localhost/dummy', { method: 'GET' })
 
       const expected = {
         status: 401,
@@ -23,20 +23,24 @@ describe('ApiClient', () => {
     })
 
     // TODO: fix console.error
-    it.skip('handles network errors', async () => {
+    it('handles network errors', async () => {
+      const mock = jest.spyOn(console, 'error').mockImplementation(() => {})
+
       nock(host).get('/dummy').replyWithError({
         message: 'Network request failed',
         code: 'ECONNABORTED',
       })
 
-      const response = await api.get('http://localhost/dummy')
+      const response = await fetchHelper('http://localhost/dummy', { method: 'GET' })
 
-      const badresponse = {
+      const badResponse = {
         status: 0,
         error: 'API error: TypeError: Network request failed',
       }
 
-      expect(response).toStrictEqual(badresponse)
+      expect(response).toStrictEqual(badResponse)
+
+      mock.mockRestore()
     })
   })
 

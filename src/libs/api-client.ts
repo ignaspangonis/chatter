@@ -3,7 +3,10 @@ type ErrorResponse = {
   error: string
 }
 
-const fetchHelper = async <T>(path: string, config: RequestInit): Promise<T | ErrorResponse> => {
+export const fetchHelper = async <T>(
+  path: string,
+  config: RequestInit,
+): Promise<T | ErrorResponse> => {
   const request = new Request(path, config)
   let response: Response
 
