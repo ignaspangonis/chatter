@@ -1,5 +1,5 @@
 export const withMockedConsoleError =
-  <T extends Function>(fn: T) =>
+  <Func extends Function>(fn: Func) =>
   async () => {
     const mock = jest.spyOn(console, 'error').mockImplementation(() => {})
 
