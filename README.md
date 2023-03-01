@@ -20,6 +20,10 @@ You may also see any lint errors in the console.
 
 ## Other available Scripts
 
+### `npm test -- --watchAll`
+
+Runs all tests in the project.
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
