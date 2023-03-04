@@ -6,7 +6,7 @@ import * as api from 'src/data/api'
 
 import Lobby from './Lobby'
 
-describe('<Lobby {...props} />', () => {
+describe('<Lobby />', () => {
   let props: ComponentProps<typeof Lobby>
 
   const getCurrentWeather = jest.spyOn(api, 'getCurrentWeather')
