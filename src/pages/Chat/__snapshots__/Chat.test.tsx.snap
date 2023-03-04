@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Chat /> renders correctly 1`] = `
+<div>
+  <section
+    class="w-full"
+  >
+    <div
+      class="mb-large flex justify-end items-center gap-large"
+    >
+      <h2
+        class="text-2xl font-bold mr-auto"
+      >
+        Room: 
+        <span
+          class="text-accent"
+        >
+          Food
+        </span>
+      </h2>
+      <button
+        class="btn"
+      >
+        Make me admin
+      </button>
+      <button
+        class="btn btn-primary"
+      >
+        Leave Room
+      </button>
+    </div>
+    <div
+      class="flex gap-large justify-between"
+    >
+      <div
+        class="mr-medium"
+      >
+        <h3
+          class="text-lg font-bold"
+        >
+          Connected users
+        </h3>
+        <div>
+          Mark
+        </div>
+        <div>
+          John
+        </div>
+      </div>
+      <div
+        class="flex-1"
+      >
+        <div
+          class="h-[420px] overflow-y-auto flex flex-col gap-regular rounded-lg mb-large p-regular bg-cg6"
+        >
+          <div
+            class="text-right pr-small"
+            role="gridcell"
+            tabindex="0"
+          >
+            <div
+              class="text-sm"
+            >
+              Mark
+            </div>
+            <p
+              class="inline-block text-left mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary tooltip tooltip-left wrap-words"
+              data-tip="8/1/2021, 3:00:00 AM"
+            >
+              Nice
+            </p>
+          </div>
+        </div>
+        <form
+          class="SendMessage"
+        >
+          <div
+            class="flex flex-row gap-regular grow"
+          >
+            <input
+              class="input input-bordered mx-auto flex-grow"
+              placeholder="Aa"
+              value=""
+            />
+            <div
+              class=""
+            >
+              <button
+                class="btn"
+                disabled=""
+                type="submit"
+              >
+                Send
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+`;

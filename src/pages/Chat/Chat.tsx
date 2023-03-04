@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from 'react-daisyui'
 
 import ChatContext from 'src/containers/ChatProvider/ChatContext'
-import useAdminActions from 'src/hooks/useAdminActions'
 
 import { getLocalisedDate } from 'src/libs/utils/date'
 import { Route } from 'src/constants/routes'
 import { MessageModel } from 'src/types/models'
 
+import useAdminActions from './hooks/useAdminActions'
 import SendMessage from './SendMessage'
 
 type Props = {
