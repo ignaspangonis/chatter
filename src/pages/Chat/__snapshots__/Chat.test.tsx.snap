@@ -65,7 +65,7 @@ exports[`<Chat /> renders correctly 1`] = `
             </div>
             <p
               class="inline-block text-left mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary tooltip tooltip-left wrap-words"
-              data-tip="8/1/2021, 3:00:00 AM"
+              data-tip="8/1/2021, 3:00:00 AM"
             >
               Nice
             </p>
