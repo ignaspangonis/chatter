@@ -4,7 +4,7 @@
 
 1. Run `npm -v` to make sure you have `npm` installed. [Read more about npm](https://docs.npmjs.com/getting-started).
 2. Since this is the frontend app, before running it you first need to pull and run the [backend app](https://github.com/ignaspangonis/chatter-service/)
-3. Make sure you have mongodb installed. On macOS, run `brew services stop mongodb-community@6.0` to start the DB.
+3. Make sure you have mongodb installed. On macOS, run `brew services start mongodb-community@6.0` to start the DB.
 
 ## Install and run
 
