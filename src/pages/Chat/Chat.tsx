@@ -1,40 +1,38 @@
-import React, { useContext, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button } from 'react-daisyui'
-
-import ChatContext from 'src/containers/ChatProvider/ChatContext'
+import React, { useEffect, useMemo, useRef } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { getLocalisedDate } from 'src/libs/utils/date'
 import { Route } from 'src/constants/routes'
 import { MessageModel } from 'src/types/models'
 
-import useAdminActions from './hooks/useAdminActions'
 import SendMessage from './SendMessage'
+import useChat from './useChat'
+import AdminAction from './AdminAction'
 
-type Props = {
-  messages: MessageModel[]
-  onLeaveRoom: () => void
-  onSendMessage: (message: string) => void
-}
-
-export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
+export default function Chat() {
   const messageRef = useRef<HTMLDivElement>(null)
-  const { connection, roomName, users } = useContext(ChatContext)
-  const {
-    uiState: deleteRoomUiState,
-    handleDeleteRoom,
-    handleMakeAdmin,
-    isAdmin,
-  } = useAdminActions(onLeaveRoom)
 
   const navigate = useNavigate()
 
+  const [searchParams] = useSearchParams()
+
+  const [userName, roomName] = useMemo(() => {
+    const userName = searchParams.get('userName')
+    const roomName = searchParams.get('roomName')
+
+    if (!userName || !roomName) return [null, null]
+
+    return [String(userName), String(roomName)]
+  }, [searchParams])
+
+  const { messages, users, leaveRoom, sendMessage } = useChat(userName, roomName)
+
   useEffect(() => {
-    if (!connection) {
+    if (!userName || !roomName) {
       alert('Connection was not found!')
       navigate(Route.Home)
     }
-  }, [connection, navigate])
+  }, [userName, roomName, navigate])
 
   useEffect(() => {
     if (!messageRef.current) return
@@ -58,18 +56,9 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
     </div>
   )
 
-  const renderAdminAction = () => {
-    if (isAdmin)
-      return (
-        <button
-          className={`btn btn-error ${deleteRoomUiState === 'loading' ? 'loading' : ''}`}
-          onClick={handleDeleteRoom}
-        >
-          Delete room
-        </button>
-      )
-
-    return <Button onClick={handleMakeAdmin}>Make me admin</Button>
+  function handleLeaveRoom() {
+    leaveRoom()
+    navigate(Route.Home)
   }
 
   return (
@@ -78,8 +67,8 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
         <h2 className="text-2xl font-bold mr-auto">
           Room: <span className="text-accent">{roomName}</span>
         </h2>
-        {renderAdminAction()}
-        <button className="btn btn-primary" onClick={onLeaveRoom}>
+        <AdminAction roomName={roomName} onBeforeDeleteRoom={leaveRoom} />
+        <button className="btn btn-primary" onClick={handleLeaveRoom}>
           Leave Room
         </button>
       </div>
@@ -99,7 +88,7 @@ export default function Chat({ messages, onLeaveRoom, onSendMessage }: Props) {
           >
             {messages.map(renderMessage)}
           </div>
-          <SendMessage onSubmit={onSendMessage} />
+          <SendMessage onSubmit={sendMessage} />
         </div>
       </div>
     </section>

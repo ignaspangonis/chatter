@@ -1,15 +1,16 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Form, Input, InputGroup } from 'react-daisyui'
+import { useNavigate } from 'react-router-dom'
 
 import { Weather } from 'src/components'
 
-type Props = {
-  onJoin: (userName: string, roomName: string) => void
-}
-
-export default function Lobby({ onJoin }: Props) {
+export default function Lobby() {
   const [userName, setUserName] = useState('')
   const [roomName, setRoomName] = useState('')
+
+  const isFormDisabled = !userName || !roomName
+
+  const navigate = useNavigate()
 
   const handleUserNameChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setUserName(target.value || '')
@@ -22,9 +23,7 @@ export default function Lobby({ onJoin }: Props) {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
 
-    if (!userName || !roomName) return
-
-    onJoin(userName, roomName)
+    navigate(`/chat?userName=${userName}&roomName=${roomName}`)
   }
 
   return (
@@ -54,7 +53,7 @@ export default function Lobby({ onJoin }: Props) {
             onChange={handleRoomNameChange}
           />
         </InputGroup>
-        <Button type="submit" disabled={!userName || !roomName} color="primary">
+        <Button type="submit" disabled={isFormDisabled} color="primary">
           Join
         </Button>
       </Form>
