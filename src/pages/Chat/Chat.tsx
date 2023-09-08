@@ -56,7 +56,7 @@ export default function Chat() {
     </div>
   )
 
-  function handleLeaveRoom() {
+  function leaveRoomAndGoToLobby() {
     leaveRoom()
     navigate(Route.Home)
   }
@@ -67,8 +67,8 @@ export default function Chat() {
         <h2 className="text-2xl font-bold mr-auto">
           Room: <span className="text-accent">{roomName}</span>
         </h2>
-        <AdminAction roomName={roomName} onBeforeDeleteRoom={leaveRoom} />
-        <button className="btn btn-primary" onClick={handleLeaveRoom}>
+        <AdminAction roomName={roomName} onBeforeDeleteRoom={leaveRoomAndGoToLobby} />
+        <button className="btn btn-primary" onClick={leaveRoomAndGoToLobby}>
           Leave Room
         </button>
       </div>

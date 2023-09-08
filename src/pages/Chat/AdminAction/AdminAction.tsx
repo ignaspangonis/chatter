@@ -36,7 +36,11 @@ export default function AdminAction({ roomName, onBeforeDeleteRoom }: Props) {
   const isAdmin = searchParams.get(ADMIN_URL_PARAM) === ADMIN_URL_PARAM_VALUE
 
   const handleMakeMeAdminClick = () => {
-    setSearchParams(prevParams => ({ ...prevParams, [ADMIN_URL_PARAM]: ADMIN_URL_PARAM_VALUE }))
+    setSearchParams(searchParams => {
+      searchParams.set(ADMIN_URL_PARAM, ADMIN_URL_PARAM_VALUE)
+
+      return searchParams
+    })
   }
 
   const handleDeleteRoom = async () => {
