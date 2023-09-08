@@ -1,35 +1,22 @@
-import { HubConnectionBuilder } from '@microsoft/signalr'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 // import { ComponentProps } from 'react'
-import { ChatContextType } from 'src/containers/ChatProvider/ChatContext'
 
 import * as api from 'src/data/api'
-import { withChat, withRouter, WithRouterOptions } from 'src/libs/utils/test'
+import { withRouter, WithRouterOptions } from 'src/libs/utils/test'
 
 import Chat from './Chat'
 
 describe('<Chat />', () => {
   // let props: ComponentProps<typeof Chat>
-  let chatContext: ChatContextType
   let routerOptions: WithRouterOptions
 
   const deleteMessageRoom = jest.spyOn(api, 'deleteMessageRoom')
 
-  const renderHelper = (component: JSX.Element) =>
-    render(withChat(withRouter(component, routerOptions), chatContext))
+  const renderHelper = (component: JSX.Element) => render(withRouter(component, routerOptions))
 
   beforeEach(() => {
     deleteMessageRoom.mockReturnValue(new Promise(() => {}))
-
-    chatContext = {
-      connection: new HubConnectionBuilder().withUrl('http://localhost').build(),
-      setConnection: () => {},
-      roomName: 'Food',
-      setRoomName: () => {},
-      users: ['Mark', 'John'],
-      setUsers: () => {},
-    }
 
     // props = {
     //   messages: [
