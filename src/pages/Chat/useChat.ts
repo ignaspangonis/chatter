@@ -1,11 +1,7 @@
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { MessageModel } from 'src/types/models'
-import { ExtendedMessageDto } from 'src/types/dtos'
-import { ChatHubMethod, CHAT_API_URL } from 'src/constants/connection'
-import { transformMessage, transformMessages } from 'src/data/transformers/message'
-import { toFormattedString } from 'src/libs/utils/string'
+import { ChatContext } from 'src/containers/ChatProvider/ChatContext'
 
 const handleError = (userMessage: string, error: unknown) => {
   alert(userMessage)
@@ -17,85 +13,55 @@ const handleError = (userMessage: string, error: unknown) => {
 
 const useChat = (userName: string | null, roomName: string | null) => {
   const [messages, setMessages] = useState<MessageModel[]>([])
-  const [connection, setConnection] = useState<HubConnection>()
   const [users, setUsers] = useState<string[]>([])
+  const { chatClient } = useContext(ChatContext)
 
   const handleConnectionClosed = useCallback(() => {
-    setConnection(undefined)
     setUsers([])
     setMessages([])
   }, [])
 
   const leaveRoom = useCallback(async () => {
-    if (!connection) return
+    if (!chatClient) return
 
     try {
-      await connection.stop()
+      await chatClient.disconnect()
     } catch (error) {
       handleError('Failed to stop connection', error)
     }
 
     handleConnectionClosed()
-  }, [handleConnectionClosed, connection])
-
-  const createConnection = useCallback(() => {
-    try {
-      const newConnection = new HubConnectionBuilder()
-        .withUrl(CHAT_API_URL)
-        .configureLogging(LogLevel.Information)
-        .build()
-
-      newConnection.on(ChatHubMethod.ReceiveMessageHistory, (newMessages: ExtendedMessageDto[]) => {
-        setMessages(transformMessages(newMessages))
-      })
-      newConnection.on(ChatHubMethod.ReceiveMessage, (message: ExtendedMessageDto) =>
-        setMessages(previous => [...previous, transformMessage(message)]),
-      )
-      newConnection.on(ChatHubMethod.UsersInRoom, (users: string[]) => setUsers(users))
-      newConnection.onclose(handleConnectionClosed)
-
-      return newConnection
-    } catch (error) {
-      handleError('Failed to create a connection', error)
-    }
-  }, [handleConnectionClosed])
+  }, [handleConnectionClosed, chatClient])
 
   useEffect(() => {
-    if (!userName || !roomName) return
+    if (!userName || !roomName || !chatClient) return
 
-    const newConnection = createConnection()
-
-    if (!newConnection) return
-
-    try {
-      newConnection.start().then(() =>
-        newConnection.invoke(ChatHubMethod.JoinRoom, {
-          UserName: userName,
-          RoomName: roomName,
-        }),
-      )
-    } catch (error) {
-      handleError('Failed to start connection, please try again later.', error)
-    }
-
-    setConnection(newConnection)
+    chatClient.connect({
+      roomName,
+      userName,
+      onGetUsers: setUsers,
+      onNewMessage: message => setMessages(prevMessages => [...prevMessages, message]),
+      onGetMessageHistory: messages => setMessages(messages),
+      onClose: handleConnectionClosed,
+      onError: error => handleError('Failed to connect, please try again later.', error),
+    })
 
     return () => {
-      newConnection.stop().catch(error => console.error('Failed to stop connection', error))
+      chatClient.disconnect().catch(error => handleError('Failed to disconnect', error))
     }
-  }, [roomName, userName, createConnection])
+  }, [roomName, userName, chatClient, handleConnectionClosed])
 
   const sendMessage = useCallback(
     async (message: string) => {
-      if (!connection) return
+      if (!chatClient) return
 
       try {
-        await connection.invoke(ChatHubMethod.SendMessage, message)
+        await chatClient.sendMessage(message)
       } catch (error) {
-        alert(`Failed to send message. ${toFormattedString(error)}`)
+        handleError('Failed to send message', error)
       }
     },
-    [connection],
+    [chatClient],
   )
 
   return {

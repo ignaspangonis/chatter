@@ -8,7 +8,6 @@ import { withRouter, WithRouterOptions } from 'src/libs/utils/test'
 import Chat from './Chat'
 
 describe('<Chat />', () => {
-  // let props: ComponentProps<typeof Chat>
   let routerOptions: WithRouterOptions
 
   const deleteMessageRoom = jest.spyOn(api, 'deleteMessageRoom')
@@ -17,20 +16,6 @@ describe('<Chat />', () => {
 
   beforeEach(() => {
     deleteMessageRoom.mockReturnValue(new Promise(() => {}))
-
-    // props = {
-    //   messages: [
-    //     {
-    //       id: '1',
-    //       userName: 'Mark',
-    //       content: 'Nice',
-    //       createdAt: '2021-08-01T00:00:00.000Z',
-    //       roomName: 'Food',
-    //     },
-    //   ],
-    //   onSendMessage: jest.fn(),
-    //   onLeaveRoom: jest.fn(),
-    // }
   })
 
   it('renders correctly', () => {
