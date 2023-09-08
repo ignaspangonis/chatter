@@ -13,7 +13,6 @@ export default function Chat() {
   const messageRef = useRef<HTMLDivElement>(null)
 
   const navigate = useNavigate()
-
   const [searchParams] = useSearchParams()
 
   const [userName, roomName] = useMemo(() => {
