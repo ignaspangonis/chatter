@@ -14,8 +14,9 @@ type Props = {
 
 export default function AdminAction({ roomName, onBeforeDeleteRoom }: Props) {
   const [uiState, setUiState] = useState<UiState>('idle')
-
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const isAdmin = searchParams.get(ADMIN_URL_PARAM) === ADMIN_URL_PARAM_VALUE
 
   const deleteRoom = async (roomName: string) => {
     setUiState('loading')
@@ -32,8 +33,6 @@ export default function AdminAction({ roomName, onBeforeDeleteRoom }: Props) {
     alert('Room deleted successfully!')
     setUiState('idle')
   }
-
-  const isAdmin = searchParams.get(ADMIN_URL_PARAM) === ADMIN_URL_PARAM_VALUE
 
   const handleMakeMeAdminClick = () => {
     setSearchParams(searchParams => {
