@@ -47,12 +47,13 @@ export default function Chat() {
   const renderMessage = (message: MessageModel, index: number) => {
     const isOwnMessage = message.userName === userName
     const isSystemMessage = message.userName === 'ChatBot'
+    const isOtherUserMessage = !isOwnMessage && !isSystemMessage
 
     return (
       <div
         className={classNames('pr-small', {
           'text-right': isOwnMessage,
-          'text-left': !isOwnMessage,
+          'text-left': isOtherUserMessage,
           'text-center': isSystemMessage,
         })}
         role="gridcell"
@@ -62,11 +63,11 @@ export default function Chat() {
         {!isSystemMessage && <p className="text-sm">{message.userName}</p>}
         <p
           className={classNames(
-            'inline-block mb-[0] mt-x-small mx-auto py-small px-regular text-base rounded-lg tooltip tooltip-left wrap-words',
+            'inline-block mb-[0] mt-x-small mx-auto py-small px-regular text-base rounded-lg wrap-words z-large tooltip',
             {
-              'text-cg2 text-xs': isSystemMessage,
-              'bg-primary text-cg7': isOwnMessage,
-              'bg-base-300 text-cg1': !isOwnMessage && !isSystemMessage,
+              'text-cg2 text-xs tooltip-right': isSystemMessage,
+              'bg-primary text-cg7 tooltip-left': isOwnMessage,
+              'bg-base-300 text-cg1 tooltip-right': isOtherUserMessage,
             },
           )}
           data-tip={getLocalisedDate(message.createdAt)}
