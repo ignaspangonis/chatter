@@ -2,9 +2,19 @@ import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import * as api from 'src/libs/chat-room/api'
+import { MessageModel } from 'src/libs/chat-room/types/models'
 import { ChatClientMock, withChat, withRouter, WithRouterOptions } from 'src/libs/utils/test'
 
 import Chat from './Chat'
+
+const buildMessageModel = (override?: Partial<MessageModel>): MessageModel => ({
+  id: 'adfa',
+  userName: 'John',
+  content: 'Hello world!',
+  createdAt: '2023-09-09T00:00:00.000Z',
+  roomName: '1',
+  ...override,
+})
 
 describe('<Chat />', () => {
   let routerOptions: WithRouterOptions
@@ -19,28 +29,54 @@ describe('<Chat />', () => {
     deleteChatRoom.mockReturnValue(new Promise(() => {}))
 
     chatClient = new ChatClientMock()
-    routerOptions = { initialEntries: ['?userName=John&roomName=1'] }
+    routerOptions = { initialEntries: ['?userName=John&roomName=best-room'] }
   })
 
-  it('renders a new message', async () => {
+  it('renders the room name', () => {
+    renderHelper(<Chat />)
+
+    expect(screen.getByText('best-room')).toBeInTheDocument()
+  })
+
+  it('renders message history', async () => {
     renderHelper(<Chat />)
 
     await waitFor(() => expect(chatClient.connect).toHaveBeenCalledTimes(1))
     expect(screen.queryByText('Hello world!')).not.toBeInTheDocument()
 
+    const { onGetMessageHistory } = chatClient.connect.mock.calls[0][0]
+
+    const messages = [
+      buildMessageModel({ content: 'Hey world!', userName: 'Josh' }),
+      buildMessageModel({ content: 'Hello!', userName: 'Mark' }),
+    ]
+
+    act(() => onGetMessageHistory(messages))
+
+    expect(await screen.findByText('Hey world!')).toBeInTheDocument()
+    expect(screen.getByText('Josh')).toBeInTheDocument()
+    expect(screen.getByText('Hello!')).toBeInTheDocument()
+    expect(screen.getByText('Mark')).toBeInTheDocument()
+  })
+
+  it('renders new message', async () => {
+    renderHelper(<Chat />)
+
+    await waitFor(() => expect(chatClient.connect).toHaveBeenCalledTimes(1))
+    expect(screen.queryByText('Hello world!')).not.toBeInTheDocument()
+    expect(screen.queryByText('John')).not.toBeInTheDocument()
+
     const { onNewMessage } = chatClient.connect.mock.calls[0][0]
 
-    act(() => {
-      onNewMessage({
-        id: 'adfa',
-        userName: 'John',
-        content: 'Hello world!',
-        createdAt: '2023-09-09',
-        roomName: '1',
-      })
+    const newMessage = buildMessageModel({
+      userName: 'John',
+      content: 'Hello world!',
     })
 
+    act(() => onNewMessage(newMessage))
+
     expect(await screen.findByText('Hello world!')).toBeInTheDocument()
+    expect(screen.getByText('John')).toBeInTheDocument()
   })
 
   describe('when the user is admin', () => {
