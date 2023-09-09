@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { ComponentProps } from 'react'
 
 import * as api from 'src/data/api'
 
