@@ -24,6 +24,10 @@ You may also see any lint errors in the console.
 
 Runs all tests in the project.
 
+### `npm test --watch [test name substring]`
+
+Runs the tests that match the provided test substring
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
