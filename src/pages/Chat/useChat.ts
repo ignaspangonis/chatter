@@ -7,7 +7,7 @@ const handleError = (userMessage: string, error: unknown) => {
   alert(userMessage)
 
   if (error instanceof Error) {
-    console.error(`${userMessage} Error: ${error.message}. Stacktrace: ${error.stack}`)
+    console.error(`${userMessage}. Error: ${error.message}. Stacktrace: ${error.stack}`)
   }
 }
 
@@ -27,7 +27,7 @@ const useChat = (userName: string | null, roomName: string | null) => {
     try {
       await chatClient.disconnect()
     } catch (error) {
-      handleError('Failed to stop connection', error)
+      handleError('Failed to disconnect from the room, please try again later', error)
     }
 
     handleConnectionClosed()
@@ -43,11 +43,11 @@ const useChat = (userName: string | null, roomName: string | null) => {
       onNewMessage: message => setMessages(prevMessages => [...prevMessages, message]),
       onGetMessageHistory: messages => setMessages(messages),
       onClose: handleConnectionClosed,
-      onError: error => handleError('Failed to connect, please try again later.', error),
+      onError: error => handleError('Failed to connect, please try again later', error),
     })
 
     return () => {
-      chatClient.disconnect().catch(error => handleError('Failed to disconnect', error))
+      chatClient.disconnect().catch(error => console.error('Failed to disconnect', error))
     }
   }, [roomName, userName, chatClient, handleConnectionClosed])
 
