@@ -30,7 +30,6 @@ describe('<Chat />', () => {
 
     const { onNewMessage } = chatClient.connect.mock.calls[0][0]
 
-    // TODO: act should not be needed here
     act(() => {
       onNewMessage({
         id: 'adfa',
