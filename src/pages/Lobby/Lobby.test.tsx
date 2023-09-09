@@ -5,6 +5,13 @@ import * as api from 'src/data/api'
 
 import Lobby from './Lobby'
 
+const mockNavigate = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as any),
+  useNavigate: () => mockNavigate,
+}))
+
 describe('<Lobby />', () => {
   const getCurrentWeather = jest.spyOn(api, 'getCurrentWeather')
 
@@ -24,14 +31,14 @@ describe('<Lobby />', () => {
     await waitFor(() => expect(getCurrentWeather).toHaveBeenCalledTimes(1))
   })
 
-  it.todo('calls callback on form submit', async () => {
+  it('calls callback on form submit', async () => {
     render(<Lobby />)
 
     userEvent.type(screen.getByPlaceholderText('Enter username'), 'John')
     userEvent.type(screen.getByPlaceholderText('Enter room'), '1')
     userEvent.click(screen.getByText('Join'))
 
-    // await waitFor(() => expect(props.onJoin).toHaveBeenCalledTimes(1))
-    // expect(props.onJoin).toHaveBeenCalledWith('John', '1')
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledTimes(1))
+    expect(mockNavigate).toHaveBeenCalledWith('/chat?userName=John&roomName=1')
   })
 })

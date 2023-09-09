@@ -2,9 +2,7 @@
 
 exports[`<SendMessage {...props} /> renders correctly 1`] = `
 <div>
-  <form
-    class="SendMessage"
-  >
+  <form>
     <div
       class="flex flex-row gap-regular grow"
     >
@@ -13,17 +11,13 @@ exports[`<SendMessage {...props} /> renders correctly 1`] = `
         placeholder="Aa"
         value=""
       />
-      <div
-        class=""
+      <button
+        class="btn"
+        disabled=""
+        type="submit"
       >
-        <button
-          class="btn"
-          disabled=""
-          type="submit"
-        >
-          Send
-        </button>
-      </div>
+        Send
+      </button>
     </div>
   </form>
 </div>

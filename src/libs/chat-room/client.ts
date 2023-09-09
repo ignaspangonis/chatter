@@ -5,7 +5,7 @@ import { ExtendedMessageDto } from 'src/libs/chat-room/types/dtos'
 
 import { MessageModel } from 'src/libs/chat-room/types/models'
 
-type SubscribeOptions = {
+export type ConnectParams = {
   roomName: string
   userName: string
   onGetUsers: (users: string[]) => void
@@ -37,7 +37,7 @@ export class ChatClient {
     onGetMessageHistory,
     onClose,
     onError,
-  }: SubscribeOptions) {
+  }: ConnectParams) {
     if (this.connection.state !== 'Disconnected') return
 
     this.connection.on(ChatEvent.ReceiveMessageHistory, (newMessages: ExtendedMessageDto[]) =>
