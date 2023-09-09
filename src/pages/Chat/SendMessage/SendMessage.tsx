@@ -21,7 +21,7 @@ export default function SendMessage({ onSubmit }: Props) {
   }
 
   return (
-    <form className="SendMessage" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div className="flex flex-row gap-regular grow">
         <input
           className="input input-bordered mx-auto flex-grow"
@@ -30,11 +30,9 @@ export default function SendMessage({ onSubmit }: Props) {
           onChange={handleMessageInput}
         />
 
-        <div className="">
-          <button className="btn" type="submit" disabled={!message}>
-            Send
-          </button>
-        </div>
+        <button className="btn" type="submit" disabled={!message}>
+          Send
+        </button>
       </div>
     </form>
   )

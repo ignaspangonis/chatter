@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { Button, Form, Input, InputGroup } from 'react-daisyui'
 import { useNavigate } from 'react-router-dom'
 
 import { Weather } from 'src/components'
@@ -29,34 +28,39 @@ export default function Lobby() {
   return (
     <div className="flex flex-col gap-large">
       <Weather />
-      <Form
-        className="flex flex-col justify-center items-center w-full gap-medium"
+      <form
+        className="form-control flex flex-col justify-center items-center w-full gap-medium"
         onSubmit={handleSubmit}
       >
-        <InputGroup className="input-group">
+        <label className="input-group">
           <span className="label">Username</span>
-          <Input
+          <input
             type="text"
-            className="w-full"
+            className="input w-full focus:outline-offset-0 input-bordered"
             value={userName}
             placeholder="Enter username"
             onChange={handleUserNameChange}
           />
-        </InputGroup>
-        <InputGroup className="input-group mx-auto w-full">
+        </label>
+        <label className="input-group">
           <span className="label">Room</span>
-          <Input
+          <input
             type="text"
-            className="w-full"
+            className="input w-full focus:outline-offset-0 input-bordered"
             value={roomName}
             placeholder="Enter room"
             onChange={handleRoomNameChange}
           />
-        </InputGroup>
-        <Button type="submit" disabled={isFormDisabled} color="primary">
+        </label>
+        <button
+          className={`btn btn-primary ${isFormDisabled ? 'btn-disabled' : ''}`}
+          type="submit"
+          disabled={isFormDisabled}
+          color="primary"
+        >
           Join
-        </Button>
-      </Form>
+        </button>
+      </form>
     </div>
   )
 }
