@@ -38,7 +38,7 @@ describe('<Chat />', () => {
     expect(screen.getByText('best-room')).toBeInTheDocument()
   })
 
-  it('renders message history', async () => {
+  it('renders messages with usernames', async () => {
     renderHelper(<Chat />)
 
     await waitFor(() => expect(chatClient.connect).toHaveBeenCalledTimes(1))
@@ -59,7 +59,7 @@ describe('<Chat />', () => {
     expect(screen.getByText('Mark')).toBeInTheDocument()
   })
 
-  it('renders new message', async () => {
+  it('renders a new message with username', async () => {
     renderHelper(<Chat />)
 
     await waitFor(() => expect(chatClient.connect).toHaveBeenCalledTimes(1))
