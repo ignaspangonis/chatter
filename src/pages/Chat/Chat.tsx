@@ -84,8 +84,8 @@ export default function Chat() {
   }
 
   return (
-    <section className="w-full">
-      <div className="mb-large flex justify-end items-center gap-large">
+    <main className="w-full">
+      <section className="mb-large flex justify-end items-center gap-large">
         <h2 className="text-2xl font-bold mr-auto">
           Room: <span className="text-accent">{roomName}</span>
         </h2>
@@ -93,17 +93,19 @@ export default function Chat() {
         <button className="btn btn-primary" onClick={leaveRoom}>
           Leave Room
         </button>
-      </div>
+      </section>
 
       <div className="flex gap-large justify-between">
-        <div className="mr-medium">
+        <aside className="mr-medium">
           <h3 className="text-lg font-bold">Connected users</h3>
-          {users.map((user, index) => (
-            <div key={index}>{user}</div>
-          ))}
-        </div>
+          <ul>
+            {users.map((user, index) => (
+              <li key={index}>{user}</li>
+            ))}
+          </ul>
+        </aside>
 
-        <div className="flex-1">
+        <section className="flex-1">
           <div
             className="h-[420px] overflow-y-auto flex flex-col gap-regular rounded-lg mb-large p-regular bg-base-200"
             ref={messageRef}
@@ -111,8 +113,8 @@ export default function Chat() {
             {messages.map(renderMessage)}
           </div>
           <SendMessage onSubmit={sendMessage} />
-        </div>
+        </section>
       </div>
-    </section>
+    </main>
   )
 }
