@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { getLocalisedDate } from 'src/libs/utils/date'
 import { Route } from 'src/constants/routes'
-import { MessageModel } from 'src/types/models'
+import { MessageModel } from 'src/libs/chat-room/types/models'
 
 import SendMessage from './SendMessage'
 import useChat from './useChat'

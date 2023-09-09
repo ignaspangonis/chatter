@@ -1,1 +1,1 @@
-export const ROOT_URL = 'https://localhost:7276'
+export const ROOT_API_URL = 'https://localhost:7276'

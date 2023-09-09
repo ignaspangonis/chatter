@@ -1,9 +1,9 @@
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
-import { ChatHubMethod, CHAT_API_URL } from 'src/constants/connection'
-import { transformMessage, transformMessages } from 'src/data/transformers/message'
-import { ExtendedMessageDto } from 'src/types/dtos'
+import { ChatEvent, ChatMethod, CHAT_API_URL } from 'src/libs/chat-room/constants'
+import { transformMessage, transformMessages } from 'src/libs/chat-room/transformers'
+import { ExtendedMessageDto } from 'src/libs/chat-room/types/dtos'
 
-import { MessageModel } from 'src/types/models'
+import { MessageModel } from 'src/libs/chat-room/types/models'
 
 type SubscribeOptions = {
   roomName: string
@@ -26,7 +26,7 @@ export class ChatClient {
   }
 
   public sendMessage(message: string) {
-    return this.connection.invoke(ChatHubMethod.SendMessage, message)
+    return this.connection.invoke(ChatMethod.SendMessage, message)
   }
 
   public connect({
@@ -40,19 +40,19 @@ export class ChatClient {
   }: SubscribeOptions) {
     if (this.connection.state !== 'Disconnected') return
 
-    this.connection.on(ChatHubMethod.ReceiveMessageHistory, (newMessages: ExtendedMessageDto[]) =>
+    this.connection.on(ChatEvent.ReceiveMessageHistory, (newMessages: ExtendedMessageDto[]) =>
       onGetMessageHistory(transformMessages(newMessages)),
     )
-    this.connection.on(ChatHubMethod.ReceiveMessage, (message: ExtendedMessageDto) =>
+    this.connection.on(ChatEvent.ReceiveMessage, (message: ExtendedMessageDto) =>
       onNewMessage(transformMessage(message)),
     )
-    this.connection.on(ChatHubMethod.UsersInRoom, onGetUsers)
+    this.connection.on(ChatEvent.UsersInRoom, onGetUsers)
     this.connection.onclose(onClose)
 
     const startConnection = async () => {
       try {
         await this.connection.start()
-        await this.connection.invoke(ChatHubMethod.JoinRoom, {
+        await this.connection.invoke(ChatMethod.JoinRoom, {
           UserName: userName,
           RoomName: roomName,
         })

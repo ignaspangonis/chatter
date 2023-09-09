@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 
-import { MessageModel } from 'src/types/models'
+import { MessageModel } from 'src/libs/chat-room/types/models'
 import { ChatContext } from 'src/containers/ChatProvider/ChatContext'
 
 const handleError = (userMessage: string, error: unknown) => {

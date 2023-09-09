@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { getCurrentWeather } from 'src/data/api'
-import { WeatherDto } from 'src/types/dtos'
+import { WeatherDto } from 'src/libs/chat-room/types/dtos'
 import { UiState } from 'src/types/ui'
 
 export default function Wheather() {

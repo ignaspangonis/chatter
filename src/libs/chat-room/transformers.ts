@@ -1,5 +1,5 @@
-import { ExtendedMessageDto } from 'src/types/dtos'
-import { MessageModel } from 'src/types/models'
+import { ExtendedMessageDto } from './types/dtos'
+import { MessageModel } from './types/models'
 
 export const transformMessage = (dto: ExtendedMessageDto): MessageModel => ({
   id: String(dto.id.timestamp),
