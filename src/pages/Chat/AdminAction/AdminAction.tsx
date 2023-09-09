@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { deleteMessageRoom } from 'src/data/api'
+import { deleteChatRoom } from 'src/libs/chat-room/api'
 import { UiState } from 'src/types/ui'
 
 const ADMIN_URL_PARAM = 'admin'
@@ -21,7 +21,7 @@ export default function AdminAction({ roomName, onBeforeDeleteRoom }: Props) {
   const deleteRoom = async (roomName: string) => {
     setUiState('loading')
 
-    const response = await deleteMessageRoom(roomName)
+    const response = await deleteChatRoom(roomName)
 
     if ('error' in response) {
       setUiState('error')

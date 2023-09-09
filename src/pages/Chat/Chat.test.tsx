@@ -1,8 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-// import { ComponentProps } from 'react'
 
-import * as api from 'src/data/api'
+import * as api from 'src/libs/chat-room/api'
 import { withRouter, WithRouterOptions } from 'src/libs/utils/test'
 
 import Chat from './Chat'
@@ -10,7 +9,7 @@ import Chat from './Chat'
 describe('<Chat />', () => {
   let routerOptions: WithRouterOptions
 
-  const deleteMessageRoom = jest.spyOn(api, 'deleteMessageRoom')
+  const deleteMessageRoom = jest.spyOn(api, 'deleteChatRoom')
 
   const renderHelper = (component: JSX.Element) => render(withRouter(component, routerOptions))
 
