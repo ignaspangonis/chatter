@@ -21,7 +21,7 @@ const useChat = (userName: string | null, roomName: string | null) => {
     setMessages([])
   }, [])
 
-  const leaveRoom = useCallback(async () => {
+  const disconnectFromRoom = useCallback(async () => {
     if (!chatClient) return
 
     try {
@@ -34,7 +34,8 @@ const useChat = (userName: string | null, roomName: string | null) => {
   }, [handleConnectionClosed, chatClient])
 
   useEffect(() => {
-    if (!userName || !roomName || !chatClient) return
+    if (!userName || !roomName) return
+    if (!chatClient) return
 
     chatClient.connect({
       roomName,
@@ -67,7 +68,7 @@ const useChat = (userName: string | null, roomName: string | null) => {
   return {
     users,
     messages,
-    leaveRoom,
+    disconnectFromRoom,
     sendMessage,
   }
 }

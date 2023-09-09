@@ -24,7 +24,7 @@ export default function Chat() {
     return [String(userName), String(roomName)]
   }, [searchParams])
 
-  const { messages, users, leaveRoom, sendMessage } = useChat(userName, roomName)
+  const { messages, users, disconnectFromRoom, sendMessage } = useChat(userName, roomName)
 
   useEffect(() => {
     if (!userName || !roomName) {
@@ -55,8 +55,8 @@ export default function Chat() {
     </div>
   )
 
-  function leaveRoomAndGoToLobby() {
-    leaveRoom()
+  function leaveRoom() {
+    disconnectFromRoom()
     navigate(Route.Home)
   }
 
@@ -66,8 +66,8 @@ export default function Chat() {
         <h2 className="text-2xl font-bold mr-auto">
           Room: <span className="text-accent">{roomName}</span>
         </h2>
-        <AdminAction roomName={roomName} onBeforeDeleteRoom={leaveRoomAndGoToLobby} />
-        <button className="btn btn-primary" onClick={leaveRoomAndGoToLobby}>
+        <AdminAction roomName={roomName} onBeforeDeleteRoom={leaveRoom} />
+        <button className="btn btn-primary" onClick={leaveRoom}>
           Leave Room
         </button>
       </div>
