@@ -8,6 +8,7 @@ import { MessageModel } from 'src/libs/chat-room/types/models'
 import SendMessage from './SendMessage'
 import useChat from './useChat'
 import AdminAction from './AdminAction'
+import classNames from 'classnames'
 
 export default function Chat() {
   const messageRef = useRef<HTMLDivElement>(null)
@@ -43,17 +44,38 @@ export default function Chat() {
     })
   }, [messages])
 
-  const renderMessage = (message: MessageModel, index: number) => (
-    <div className="text-right pr-small" role="gridcell" tabIndex={0} key={index}>
-      <div className="text-sm">{message.userName}</div>
-      <p
-        className="inline-block text-left mb-[0] mt-x-small mx-auto py-small px-regular text-base text-cg7 rounded-lg bg-primary tooltip tooltip-left wrap-words"
-        data-tip={getLocalisedDate(message.createdAt)}
+  const renderMessage = (message: MessageModel, index: number) => {
+    const isOwnMessage = message.userName === userName
+    const isSystemMessage = message.userName === 'ChatBot'
+
+    return (
+      <div
+        className={classNames('pr-small', {
+          'text-right': isOwnMessage,
+          'text-left': !isOwnMessage,
+          'text-center': isSystemMessage,
+        })}
+        role="gridcell"
+        tabIndex={0}
+        key={index}
       >
-        {message.content}
-      </p>
-    </div>
-  )
+        {!isSystemMessage && <p className="text-sm">{message.userName}</p>}
+        <p
+          className={classNames(
+            'inline-block mb-[0] mt-x-small mx-auto py-small px-regular text-base rounded-lg tooltip tooltip-left wrap-words',
+            {
+              'text-cg2 text-xs': isSystemMessage,
+              'bg-primary text-cg7': isOwnMessage,
+              'bg-base-300 text-cg1': !isOwnMessage && !isSystemMessage,
+            },
+          )}
+          data-tip={getLocalisedDate(message.createdAt)}
+        >
+          {message.content}
+        </p>
+      </div>
+    )
+  }
 
   function leaveRoom() {
     disconnectFromRoom()
@@ -82,7 +104,7 @@ export default function Chat() {
 
         <div className="flex-1">
           <div
-            className="h-[420px] overflow-y-auto flex flex-col gap-regular rounded-lg mb-large p-regular bg-cg6"
+            className="h-[420px] overflow-y-auto flex flex-col gap-regular rounded-lg mb-large p-regular bg-base-200"
             ref={messageRef}
           >
             {messages.map(renderMessage)}

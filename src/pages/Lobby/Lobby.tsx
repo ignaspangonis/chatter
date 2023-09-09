@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -95,7 +96,9 @@ export default function Lobby() {
           />
         </label>
         <button
-          className={`btn btn-primary ${isFormDisabled ? 'btn-disabled' : ''}`}
+          className={classNames('btn btn-primary', {
+            'btn-disabled': isFormDisabled,
+          })}
           type="submit"
           disabled={isFormDisabled}
           color="primary"
