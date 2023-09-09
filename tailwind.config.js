@@ -10,8 +10,6 @@ const SPACING_VALUES = {
   'x4-large': '64px',
   'x5-large': '96px',
   'x6-large': '128px',
-
-  // NOT PART OF DESIGN SYSTEM
   'x7-large': '256px',
   'x8-large': '512px',
 }
