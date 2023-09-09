@@ -68,10 +68,7 @@ describe('<Chat />', () => {
 
     const { onNewMessage } = chatClient.connect.mock.calls[0][0]
 
-    const newMessage = buildMessageModel({
-      userName: 'John',
-      content: 'Hello world!',
-    })
+    const newMessage = buildMessageModel({ userName: 'John', content: 'Hello world!' })
 
     act(() => onNewMessage(newMessage))
 
