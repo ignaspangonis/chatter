@@ -2,7 +2,7 @@
 
 The frontend part of a simple chat app with weather API. Check out the backend part [here](https://github.com/ignaspangonis/chatter-service).
 
-## Screenshots
+## Screenshots and recordings
 
 https://github.com/ignaspangonis/chatter/assets/60753755/a9f017b1-a1b8-4161-ab0d-1a604c98bdad
 
