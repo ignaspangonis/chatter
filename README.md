@@ -42,7 +42,7 @@ Builds the app for production to the `build` folder.
 
 ## TODOs
 
-There are a bunch of things that I could have done better. Below is the checklist of things I can improve.
+There are some things that I could have done better, have I had more time or put more thought into it. Below is the checklist of things I can improve.
 
 - [ ] Implement authentication and authorization
 - [ ] Implement admin functionality
