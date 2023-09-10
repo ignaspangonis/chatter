@@ -2,7 +2,7 @@ import { ROOT_API_URL } from 'src/constants/api'
 import api from 'src/libs/api-client'
 
 type DeleteChatRoomResponse = {
-  message: 'Room deleted'
+  message: string
 }
 
 export const deleteChatRoom = (roomName: string) =>
