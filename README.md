@@ -1,5 +1,9 @@
 # Chatter
 
+A simple chat app with weather API. 👇
+
+https://github.com/ignaspangonis/chatter/assets/60753755/a9f017b1-a1b8-4161-ab0d-1a604c98bdad
+
 ## Prerequisites
 
 1. Run `npm -v` to make sure you have `npm` installed. [Read more about npm](https://docs.npmjs.com/getting-started).
@@ -18,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-## Other available Scripts
+## Available scripts
 
 ### `npm test -- --watchAll`
 
@@ -30,26 +34,13 @@ Runs the tests that match the provided test substring
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## TODOs
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+There are a bunch of things that I could have done better. Below is the checklist of the things I can improve.
 
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- [ ] Implement authentication
+- [ ] Implement admin functionality
+- [ ] Migrate to `pnpm` or `bun`
+- [ ] Migrate to `nextjs` or other framework
