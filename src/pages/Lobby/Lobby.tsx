@@ -81,6 +81,8 @@ export default function Lobby() {
             type="text"
             className="input w-full focus:outline-offset-0 input-bordered"
             value={userName}
+            name="userName"
+            autoComplete="on"
             placeholder="Enter username"
             onChange={handleUserNameChange}
           />
@@ -90,6 +92,8 @@ export default function Lobby() {
           <input
             type="text"
             className="input w-full focus:outline-offset-0 input-bordered"
+            name="roomName"
+            autoComplete="on"
             value={roomName}
             placeholder="Enter room"
             onChange={handleRoomNameChange}
