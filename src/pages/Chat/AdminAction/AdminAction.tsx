@@ -23,15 +23,13 @@ export default function AdminAction({ roomName, onBeforeDeleteRoom }: Props) {
 
     const response = await deleteChatRoom(roomName)
 
-    if ('error' in response) {
-      setUiState('error')
-      alert(`Failed to delete room (status: ${response.status}). Please try again later.`)
+    setUiState('idle')
 
-      return
+    if ('error' in response) {
+      return { success: false, status: response.status }
     }
 
-    alert('Room deleted successfully!')
-    setUiState('idle')
+    return { success: true }
   }
 
   const handleMakeMeAdminClick = () => {
@@ -42,18 +40,27 @@ export default function AdminAction({ roomName, onBeforeDeleteRoom }: Props) {
     })
   }
 
-  const handleDeleteRoom = async () => {
+  const handleDeleteRoomClick = async () => {
     if (!roomName) return
 
     onBeforeDeleteRoom()
-    deleteRoom(roomName)
+    const response = await deleteRoom(roomName)
+
+    if (response.success) {
+      alert(`Room "${roomName}" has been deleted.`)
+      return
+    }
+
+    alert(
+      `Failed to delete room "${roomName}" (status: ${response.status}). Please try again later.`,
+    )
   }
 
   if (isAdmin)
     return (
       <button
         className={`btn btn-error ${uiState === 'loading' ? 'loading' : ''}`}
-        onClick={handleDeleteRoom}
+        onClick={handleDeleteRoomClick}
       >
         Delete room
       </button>
