@@ -1,4 +1,4 @@
-import { ROOT_API_URL } from '../../constants/api'
+import { ROOT_API_URL } from 'src/constants/api'
 
 export enum ChatMethod {
   JoinRoom = 'JoinRoom',
