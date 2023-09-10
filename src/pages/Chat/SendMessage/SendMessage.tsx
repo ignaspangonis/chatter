@@ -26,6 +26,8 @@ export default function SendMessage({ onSubmit }: Props) {
         <input
           className="input input-bordered mx-auto flex-grow"
           value={message}
+          name="message"
+          autoComplete="off"
           placeholder="Aa"
           onChange={handleMessageInput}
         />
