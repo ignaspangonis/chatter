@@ -11,14 +11,14 @@ https://github.com/ignaspangonis/chatter/assets/60753755/a9f017b1-a1b8-4161-ab0d
 ## Prerequisites
 
 1. Run `npm -v` to make sure you have `npm` installed. [Read more about npm](https://docs.npmjs.com/getting-started).
-2. Since this is the frontend app, before running it you first need to pull and run the [backend app](https://github.com/ignaspangonis/chatter-service/)
+2. Since this is the frontend app, before running it you first need to pull and run the [backend app](https://github.com/ignaspangonis/chatter-service/).
 3. Make sure you have mongodb installed. On macOS, run `brew services start mongodb-community@6.0` to start the DB.
 
 ## Install and run
 
 In the project directory, run:
 
-1. `npm install` to install dependencies
+1. `npm install` to install dependencies.
 
 2. `npm start` to run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -34,7 +34,7 @@ Runs all tests in the project.
 
 ### `npm test --watch [test name substring]`
 
-Runs the tests that match the provided test substring
+Runs the tests that match the provided test substring.
 
 ### `npm run build`
 
