@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+
 import { ChatClient } from 'src/libs/chat-room/client'
 
 type ChatContextType = {
