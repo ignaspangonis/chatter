@@ -29,7 +29,9 @@ export default function Chat() {
 
   useEffect(() => {
     if (!userName || !roomName) {
-      alert('Connection was not found!')
+      alert(
+        'Connection was not found. Make sure you have entered the username and roomname correctly.',
+      )
       navigate(Route.Home)
     }
   }, [userName, roomName, navigate])
