@@ -65,9 +65,7 @@ export class ChatClient {
   }
 
   public disconnect = () => {
-    const state = this.connection.state
-
-    if (state === 'Disconnecting' || state === 'Disconnected') return Promise.resolve()
+    if (!(this.connection.state === 'Connected')) return Promise.resolve()
 
     return this.connection.stop()
   }
