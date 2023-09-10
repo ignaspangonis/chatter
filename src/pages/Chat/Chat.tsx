@@ -108,6 +108,7 @@ export default function Chat() {
         <section className="flex-1">
           <div
             className="h-[420px] overflow-y-auto flex flex-col gap-regular rounded-lg mb-large p-regular bg-base-200"
+            role="row"
             ref={messageRef}
           >
             {messages.map(renderMessage)}
