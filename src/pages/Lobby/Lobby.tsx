@@ -5,32 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Weather } from 'src/components'
 import Alert from 'src/components/Alert'
 
-type ValidateFormReturnType =
-  | {
-      isValid: true
-    }
-  | {
-      isValid: false
-      error: string
-    }
-
-const FORBIDDEN_USER_NAMES = ['admin', 'moderator', 'chatbot']
-
-const validateForm = (userName: string, roomName: string): ValidateFormReturnType => {
-  if (!userName) {
-    return { isValid: false, error: 'Please enter your username!' }
-  }
-
-  if (!roomName) {
-    return { isValid: false, error: 'Please enter room name!' }
-  }
-
-  if (FORBIDDEN_USER_NAMES.includes(userName.toLowerCase())) {
-    return { isValid: false, error: 'This username is not allowed! Please choose a different one.' }
-  }
-
-  return { isValid: true }
-}
+import { validateForm } from './utils'
 
 export default function Lobby() {
   const [userName, setUserName] = useState('')
