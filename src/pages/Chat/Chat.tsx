@@ -48,7 +48,7 @@ export default function Chat() {
 
   const renderMessage = (message: MessageModel, index: number) => {
     const isOwnMessage = message.userName === userName
-    const isSystemMessage = message.userName === 'ChatBot'
+    const isSystemMessage = message.userName === 'ChatBot' // TODO: better validation
     const isOtherUserMessage = !isOwnMessage && !isSystemMessage
 
     return (
