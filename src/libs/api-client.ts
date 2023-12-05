@@ -41,7 +41,7 @@ async function put<T, U>(path: string, body: T, config?: RequestInit) {
   return fetchHelper<U>(path, options)
 }
 
-// prefixed with underscored because delete is a reserved word in javascript
+// Prefixed with "_" because delete is a reserved word in javascript
 async function _delete<T>(path: string) {
   const options = {
     method: 'DELETE',
