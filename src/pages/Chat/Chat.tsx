@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import classNames from 'classnames'
 
 import { getLocalisedDate } from 'src/libs/utils/date'
 import { Route } from 'src/constants/routes'
@@ -8,7 +9,6 @@ import { MessageModel } from 'src/libs/chat-room/types/models'
 import SendMessage from './SendMessage'
 import useChat from './useChat'
 import AdminAction from './AdminAction'
-import classNames from 'classnames'
 
 export default function Chat() {
   const messageRef = useRef<HTMLDivElement>(null)
