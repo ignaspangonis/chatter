@@ -7,7 +7,7 @@ import api, { fetchHelper } from './api-client'
 describe('ApiClient', () => {
   const host = 'http://localhost'
 
-  const goodResponseBody = { code: 200, content: 'test' }
+  const goodResponseBody = { code: 200, content: 'test' } as const
 
   describe('fetchHelper', () => {
     it('handles generic HTTP errors', async () => {
@@ -16,12 +16,12 @@ describe('ApiClient', () => {
 
       const response = await fetchHelper('http://localhost/dummy', { method: 'GET' })
 
-      const expected = {
+      const expectedResponse = {
         status: 401,
         error: 'Unauthorized',
       }
 
-      expect(response).toStrictEqual(expected)
+      expect(response).toStrictEqual(expectedResponse)
     })
 
     it(
@@ -34,12 +34,12 @@ describe('ApiClient', () => {
 
         const response = await fetchHelper('http://localhost/dummy', { method: 'GET' })
 
-        const badResponse = {
+        const expectedResponse = {
           status: 0,
           error: 'API error: TypeError: Network request failed',
         }
 
-        expect(response).toStrictEqual(badResponse)
+        expect(response).toStrictEqual(expectedResponse)
       }),
     )
   })
