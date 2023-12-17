@@ -1,8 +1,8 @@
 import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import * as api from 'src/libs/chat-room/api'
-import { MessageModel } from 'src/libs/chat-room/types/models'
+import * as api from 'src/data/api'
+import { MessageModel } from 'src/libs/chat-room/types'
 import { ChatClientMock, withChat, withRouter, WithRouterOptions } from 'src/libs/utils/test'
 
 import Chat from './Chat'

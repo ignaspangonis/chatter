@@ -2,8 +2,9 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signal
 
 import { ChatEvent, ChatMethod, CHAT_API_URL } from 'src/libs/chat-room/constants'
 import { transformMessage, transformMessages } from 'src/libs/chat-room/transformers'
-import { ExtendedMessageDto } from 'src/libs/chat-room/types/dtos'
-import { MessageModel } from 'src/libs/chat-room/types/models'
+
+import { ExtendedMessageDto } from './types'
+import { MessageModel } from './types'
 
 export type ConnectParams = {
   roomName: string

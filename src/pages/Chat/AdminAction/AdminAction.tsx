@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { deleteChatRoom } from 'src/libs/chat-room/api'
+import { deleteChatRoom } from 'src/data/api'
 import { UiState } from 'src/types/ui'
 
 const ADMIN_URL_PARAM = 'admin'

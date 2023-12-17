@@ -17,3 +17,11 @@ export type ExtendedMessageDto = {
   createdAt: string
   roomName: string
 }
+
+export type MessageModel = {
+  id: string
+  userName: string
+  content: string
+  createdAt: string
+  roomName: string
+}

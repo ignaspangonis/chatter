@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 import { getLocalisedDate } from 'src/libs/utils/date'
 import { Route } from 'src/constants/routes'
-import { MessageModel } from 'src/libs/chat-room/types/models'
+import { MessageModel } from 'src/libs/chat-room/types'
 
 import SendMessage from './SendMessage'
 import useChat from './useChat'

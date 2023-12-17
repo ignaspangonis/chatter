@@ -1,9 +1,0 @@
-import { ROOT_API_URL } from 'src/constants/api'
-import api from 'src/libs/api-client'
-
-type DeleteChatRoomResponse = {
-  message: string
-}
-
-export const deleteChatRoom = (roomName: string) =>
-  api.delete<DeleteChatRoomResponse>(`${ROOT_API_URL}/message-room/${roomName}`)
