@@ -43,8 +43,7 @@ Builds the app for production to the `build` folder.
 
 There are some things that I could have done better, have I had more time or put more thought into it. Below is the checklist of things I can improve.
 
-- [ ] Implement authentication and authorization
-- [ ] Implement admin functionality
+- [ ] Implement auth (incl. admin functionality)
 - [ ] Make user and room validation more robust
-- [ ] Migrate to `pnpm` or `bun`
-- [ ] Migrate to `nextjs` or other framework
+- [ ] Migrate to `pnpm`
+- [ ] Migrate to `nextjs`
