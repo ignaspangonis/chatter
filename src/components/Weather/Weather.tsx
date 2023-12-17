@@ -6,12 +6,10 @@ import { UiState } from 'src/types/ui'
 
 export default function Wheather() {
   const [weather, setWeather] = useState<WeatherDto>()
-  const [uiState, setUiState] = useState<UiState>('idle')
+  const [uiState, setUiState] = useState<UiState>('loading')
 
   useEffect(() => {
     async function fetchWeather() {
-      setUiState('loading')
-
       const weather = await getCurrentWeather()
 
       if ('error' in weather) {
@@ -31,9 +29,11 @@ export default function Wheather() {
       return 'Loading weather...'
     }
 
-    if (uiState === 'error' || !weather) {
+    if (uiState === 'error') {
       return 'Failed to fetch the weather. Please try again later.'
     }
+
+    if (!weather) return null
 
     return `It's ${weather.summary} today - temperature is ${weather.temperature}°C.`
   }
