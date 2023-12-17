@@ -32,10 +32,10 @@ describe('<Weather />', () => {
       })
     })
 
-    it('renders correctly', async () => {
+    it('renders temperature', async () => {
       render(<Weather />)
 
-      expect(await screen.findByText("It's hot today - temperature is 30°C")).toBeInTheDocument()
+      expect(await screen.findByText("It's hot today - temperature is 30°C.")).toBeInTheDocument()
     })
   })
 
@@ -51,7 +51,7 @@ describe('<Weather />', () => {
       render(<Weather />)
 
       expect(
-        await screen.findByText('Failed to fetch the weather. Try again later.'),
+        await screen.findByText('Failed to fetch the weather. Please try again later.'),
       ).toBeInTheDocument()
     })
   })

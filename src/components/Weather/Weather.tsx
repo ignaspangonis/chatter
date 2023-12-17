@@ -27,7 +27,7 @@ export default function Wheather() {
   }, [])
 
   const renderWeatherText = () => {
-    if (uiState === 'loading' || uiState === 'idle') {
+    if (uiState === 'loading') {
       return 'Loading weather...'
     }
 
