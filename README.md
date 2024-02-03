@@ -12,6 +12,18 @@ https://github.com/ignaspangonis/chatter/assets/60753755/a9f017b1-a1b8-4161-ab0d
 
 1. Run `npm -v` to make sure you have `npm` installed. [Read more about npm](https://docs.npmjs.com/getting-started).
 2. Since this is the frontend app, before running it you first need to pull and run the [backend app](https://github.com/ignaspangonis/chatter-service/).
+    - For example, if the backend project is in the same directory as your frontend project, you can use this script to run the backend server (with DB) with `brew` on macOS:
+
+```
+cd ChatterService && brew services start mongodb-community && dotnet run
+```
+
+or
+
+```
+npm run start-server
+```
+
 
 ## Install and run
 
@@ -25,7 +37,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-## Available scripts
+## Other available scripts
 
 ### `npm test -- --watchAll`
 
@@ -38,6 +50,9 @@ Runs the tests that match the provided test substring.
 ### `npm run build`
 
 Builds the app for production to the `build` folder.
+
+### `npm run stop-db`
+Stops MongoDB (community edition, using `brew`).
 
 ## TODOs
 
