@@ -15,7 +15,7 @@ https://github.com/ignaspangonis/chatter/assets/60753755/a9f017b1-a1b8-4161-ab0d
     - For example, if the backend project is in the same directory as your frontend project, you can use this script to run the backend server (with DB) with `brew` on macOS:
 
 ```
-cd ChatterService && brew services start mongodb-community && dotnet run
+cd .. && cd ChatterService && cd ChatterService && brew services start mongodb-community && dotnet run
 ```
 
 or
