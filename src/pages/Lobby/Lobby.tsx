@@ -16,16 +16,18 @@ export default function Lobby() {
 
   const navigate = useNavigate()
 
+  const resetError = () => {
+    if (error) setError(null)
+  }
+
   const handleUserNameChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setUserName(target.value || '')
-
-    if (error) setError(null)
+    resetError()
   }
 
   const handleRoomNameChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setRoomName(target.value || '')
-
-    if (error) setError(null)
+    resetError()
   }
 
   const handleSubmit = (event: FormEvent) => {
