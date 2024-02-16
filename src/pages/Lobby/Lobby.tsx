@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Weather } from 'src/components'
 import Alert from 'src/components/Alert'
+import { Route } from 'src/constants/routes'
 
 import { validateForm } from './utils'
 
@@ -41,7 +42,7 @@ export default function Lobby() {
       return
     }
 
-    navigate(`/chat?userName=${userName}&roomName=${roomName}`)
+    navigate(`${Route.Chat}?userName=${userName}&roomName=${roomName}`)
   }
 
   return (
