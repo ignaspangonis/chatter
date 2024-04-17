@@ -92,7 +92,7 @@ export default function Chat() {
           Room: <span className="text-accent">{roomName}</span>
         </h2>
         <AdminAction roomName={roomName} onBeforeDeleteRoom={leaveRoom} />
-        <button className="btn btn-primary" onClick={leaveRoom}>
+        <button className="btn btn-secondary" onClick={leaveRoom}>
           Leave Room
         </button>
       </section>
