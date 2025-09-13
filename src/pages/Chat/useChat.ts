@@ -3,15 +3,13 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { MessageModel } from 'src/libs/chat-room/types'
 import { ChatContext } from 'src/containers/ChatProvider/ChatContext'
 
-const handleError = (userMessage: string, error: unknown) => {
-  alert(userMessage)
-
-  if (error instanceof Error) {
-    console.error(`${userMessage}. Error: ${error.message}. Stacktrace: ${error.stack}`)
-  }
+type Props = {
+  userName: string | null
+  roomName: string | null
+  onConnectionError: (error: unknown) => void
 }
 
-const useChat = (userName: string | null, roomName: string | null) => {
+const useChat = ({ userName, roomName, onConnectionError }: Props) => {
   const [messages, setMessages] = useState<MessageModel[]>([])
   const [users, setUsers] = useState<string[]>([])
   const { chatClient } = useContext(ChatContext)
@@ -27,7 +25,7 @@ const useChat = (userName: string | null, roomName: string | null) => {
     try {
       await chatClient.disconnect()
     } catch (error) {
-      handleError('Failed to disconnect from the room, please try again later', error)
+      alert('Failed to disconnect from the room, please try again later')
     }
 
     handleConnectionClosed()
@@ -44,13 +42,13 @@ const useChat = (userName: string | null, roomName: string | null) => {
       onNewMessage: message => setMessages(prevMessages => [...prevMessages, message]),
       onGetMessageHistory: messages => setMessages(messages),
       onClose: handleConnectionClosed,
-      onError: error => handleError('Failed to connect, please try again later', error),
+      onError: onConnectionError,
     })
 
     return () => {
       chatClient.disconnect().catch(error => console.error('Failed to disconnect', error))
     }
-  }, [roomName, userName, chatClient, handleConnectionClosed])
+  }, [roomName, userName, chatClient, handleConnectionClosed, onConnectionError])
 
   const sendMessage = useCallback(
     async (message: string) => {
@@ -59,7 +57,7 @@ const useChat = (userName: string | null, roomName: string | null) => {
       try {
         await chatClient.sendMessage(message)
       } catch (error) {
-        handleError('Failed to send message', error)
+        alert('Failed to send message')
       }
     },
     [chatClient],

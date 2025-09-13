@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import classNames from 'classnames'
 
@@ -18,7 +18,16 @@ export default function Chat() {
   const userName = searchParams.get('userName')
   const roomName = searchParams.get('roomName')
 
-  const { messages, users, disconnectFromRoom, sendMessage } = useChat(userName, roomName)
+  function onConnectionError() {
+    alert('Failed to connect, please try again later')
+    navigate(Route.Home)
+  }
+
+  const { messages, users, disconnectFromRoom, sendMessage } = useChat({
+    userName,
+    roomName,
+    onConnectionError,
+  })
 
   useEffect(() => {
     if (!userName || !roomName) {
@@ -39,7 +48,7 @@ export default function Chat() {
     })
   }, [messages])
 
-  const renderMessage = (message: MessageModel, index: number) => {
+  function renderMessage(message: MessageModel, index: number) {
     const isOwnMessage = message.userName === userName
     const isSystemMessage = message.userName === 'ChatBot' // TODO: better validation
     const isOtherUserMessage = !isOwnMessage && !isSystemMessage
