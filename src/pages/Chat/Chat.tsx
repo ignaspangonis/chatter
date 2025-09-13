@@ -12,18 +12,11 @@ import AdminAction from './AdminAction'
 
 export default function Chat() {
   const messageRef = useRef<HTMLDivElement>(null)
-
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
-  const [userName, roomName] = useMemo(() => {
-    const userName = searchParams.get('userName')
-    const roomName = searchParams.get('roomName')
-
-    if (!userName || !roomName) return [null, null]
-
-    return [String(userName), String(roomName)]
-  }, [searchParams])
+  const userName = searchParams.get('userName')
+  const roomName = searchParams.get('roomName')
 
   const { messages, users, disconnectFromRoom, sendMessage } = useChat(userName, roomName)
 
