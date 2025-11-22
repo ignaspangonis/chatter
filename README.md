@@ -6,8 +6,6 @@ The frontend part of a simple chat app with weather API. Check out the backend p
 
 https://github.com/ignaspangonis/chatter/assets/60753755/a9f017b1-a1b8-4161-ab0d-1a604c98bdad
 
-<img width="504" alt="image" src="https://github.com/ignaspangonis/chatter/assets/60753755/1dc50961-9791-44a6-a781-b4ad3182e2a8">
-
 ## Prerequisites
 
 1. Run `npm -v` to make sure you have `npm` installed. [Read more about npm](https://docs.npmjs.com/getting-started).
